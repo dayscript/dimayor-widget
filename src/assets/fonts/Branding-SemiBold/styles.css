@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'Branding-SemiBold';
+  src: url('Branding-SemiBold.eot?#iefix') format('embedded-opentype'),  url('Branding-SemiBold.otf')  format('opentype'),
+	     url('Branding-SemiBold.woff') format('woff'), url('Branding-SemiBold.ttf')  format('truetype'), url('Branding-SemiBold.svg#Branding-SemiBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

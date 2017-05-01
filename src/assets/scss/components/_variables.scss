@@ -1,0 +1,33 @@
+//---------------------------------------
+// Colors
+//---------------------------------------
+$main-color: #1D2140;
+$light-gray: #ECECF1;
+$dark-gray: #626579;
+$white: #FFF;
+$black: #000;
+$blue: #0064fa;
+$green: #1c991a;
+
+//---------------------------------------
+// Fonts
+//---------------------------------------
+
+@font-face {
+  font-family: 'branding-semibold';
+  src: url('../fonts/Branding-SemiBold/Branding-SemiBold.eot');
+  src: local('☺'), url('../fonts/Branding-SemiBold/Branding-SemiBold.woff') format('woff'), url('../fonts/Branding-SemiBold/Branding-SemiBold.ttf') format('truetype'), url('../fonts/Branding-SemiBold/Branding-SemiBold.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'branding-semilight';
+  src: url('../fonts/Branding-SemiLight/Branding-SemiLight.eot');
+  src: local('☺'), url('../fonts/Branding-SemiLight/Branding-SemiLight.woff') format('woff'), url('../fonts/Branding-SemiLight/Branding-SemiLight.ttf') format('truetype'), url('../fonts/Branding-SemiLight/Branding-SemiLight.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font-main: 'branding-semibold';
+$font-second: 'branding-semilight';

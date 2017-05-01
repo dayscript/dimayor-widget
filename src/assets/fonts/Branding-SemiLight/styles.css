@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'Branding-SemiLight';
+  src: url('Branding-SemiLight.eot?#iefix') format('embedded-opentype'),  url('Branding-SemiLight.otf')  format('opentype'),
+	     url('Branding-SemiLight.woff') format('woff'), url('Branding-SemiLight.ttf')  format('truetype'), url('Branding-SemiLight.svg#Branding-SemiLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
