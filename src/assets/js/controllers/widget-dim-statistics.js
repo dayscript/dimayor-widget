@@ -204,21 +204,78 @@ dimApp.controller('WidgetDimStatisticsController',
             $this.text('+');        
         }
         // minuto a minuto opta
-        // $http.get('//s3.amazonaws.com/optafeeds-prod/gamecast/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json',{
-        $http.get('//s3.amazonaws.com/optafeeds-prod/gamecast/'+tournament.id+'/'+tournament.season+'/matches/902976.json',{
-        // $http.get('//s3.amazonaws.com/optafeeds-prod/gamecast/'+opta_tournament+'/'+opta_season+'/matches/902969.json',{
-            headers: {
-                'Cache-Control' : 'no-cache'
-            } 
-        }).then(function(response){
-            var temp = response.data.events.shift();
-            $scope.min_a_min = $filter('orderBy')(response.data.events, ['-period','-minute', '-second'], false);
-            $scope.min_a_min.push(temp);
+        $http.get('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            .then(function(response){
 
-            angular.forEach($scope.min_a_min, function(event, index){
-                // console.log(event);
+            console.log(match.id);
+            console.log(response.data);
+            
+            var formation = response.data
+            $scope.events = {};
+            
+            $scope.events[match.home.id] = {
+                "yellow_cards" : [],
+                "red_cards" : [],
+                "goals" : []
+            }
+
+            angular.forEach(formation.teams[match.home.id].players.Start, function(player, id){
+                angular.forEach(player.events, function(event, event_id){
+                    if(event.type == "yellow-card"){
+                        $scope.events[match.home.id].yellow_cards.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+
+                    if(event.type == "red-card"){
+                        $scope.events[match.home.id].red_cards.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+
+                    if(event.type == "goal"){
+                        $scope.events[match.home.id].goals.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+                });
             });
 
+            $scope.events[match.away.id] = {
+                "yellow_cards" : [],
+                "red_cards" : [],
+                "goals" : []
+            }
+
+            angular.forEach(formation.teams[match.away.id].players.Start, function(player, id){
+                angular.forEach(player.events, function(event, event_id){
+                    if(event.type == "yellow-card"){
+                        $scope.events[match.away.id].yellow_cards.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+
+                    if(event.type == "red-card"){
+                        $scope.events[match.away.id].red_cards.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+
+                    if(event.type == "goal"){
+                        $scope.events[match.away.id].goals.push({
+                            name: player.name,
+                            min: event.min,
+                        });
+                    }
+                });
+            });
+
+            console.log($scope.events);
         }, function (response){
             $scope.gamecast_error = true;
         });

@@ -10,7 +10,7 @@
             </li>
         </ul>
         <div class="clear-both"></div>
-        <ul class="submenu hide-for-small-only \{{ 'tournament-'+tournament.id }}">
+        <ul class="submenu hide-for-small-only hide-for-medium-only \{{ 'tournament-'+tournament.id }}">
             <li
             ng-repeat="tab in active_tournament_tabs" 
             ng-click="getData(tournament.id, tournament.season, tab)"
@@ -31,8 +31,8 @@
         </select>
         <div ng-switch="active_tournament_tab.id">
             <div ng-switch-when="positions|reclassification" ng-switch-when-separator="|">
-                <div class="row">
-                    <div class="small-12 medium-4 columns">
+                <div class="row collapse">
+                    <div class="small-12 large-4 columns">
                         <select 
                         ng-change="getPositions(tournament.id, tournament.season, phase)"
                         ng-model="phase"
@@ -40,7 +40,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row positions">
+                <div class="row positions collapse">
                     <div class="small-12 columns">
                         <table
                         ng-repeat="stage in stages track by stage.id">
@@ -52,32 +52,32 @@
                                     <th class="text-center" title="Puntos Totales">PT</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
                                     <th class="text-center" title="Partidos Ganados">PG</th>
-                                    <th class="text-center" title="Goles a Favor">GF</th>
-                                    <th class="text-center" title="Diferencia de Gol">DG</th>
-                                    <th class="text-center" title="Partidos Empatados">PE</th>
-                                    <th class="text-center" title="Partidos Perdidos">PP</th>
-                                    <th class="hide-for-small-only text-center" title="Goles en Contra">GC</th>
-                                    <th class="hide-for-small-only text-center" title="Goles a Favor como Visitante">GFV</th>
-                                    <th class="hide-for-small-only text-center" title="Goles en Contra como Visitante">GCV</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Goles a Favor">GF</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Diferencia de Gol">DG</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Partidos Empatados">PE</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Partidos Perdidos">PP</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra">GC</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles a Favor como Visitante">GFV</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra como Visitante">GCV</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="team in stage.teams">
                                     <td class="text-center">\{{team.pos}}</td>
-                                    <td class="text-right">
+                                    <td class="text-right logo">
                                         <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
                                     </td>
                                     <td class="text-left">\{{team.name}}</td>
                                     <td class="text-center">\{{team.pt}}</td>
                                     <td class="text-center">\{{team.pj}}</td>
                                     <td class="text-center">\{{team.pg}}</td>
-                                    <td class="text-center">\{{team.gf}}</td>
-                                    <td class="text-center">\{{team.gd}}</td>
-                                    <td class="text-center">\{{team.pe}}</td>
-                                    <td class="text-center">\{{team.pp}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gc}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gfv}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gcv}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.gf}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.gd}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.pe}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.pp}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gc}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gfv}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gcv}}</td>
                                 </tr>    
                             </tbody>
                         </table>
@@ -86,7 +86,7 @@
             </div>
             <div ng-switch-when="schedules">
                 <div class="row collapse">
-                    <div class="small-12 medium-4 columns">
+                    <div class="small-12 large-4 columns">
                         <select 
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
@@ -96,51 +96,55 @@
                 </div>  
                 <div ng-repeat="(key, group) in matches" class="schedules">
                     <div class="row schedules-titles">
-                        <div class="small-12 medium-7 columns">
+                        <div class="small-12 large-7 columns">
                             \{{ group.time == 0 ? group.tis : group.time | date:'MMMM dd yyyy' }}
                         </div>
-                        <div class="small-12 medium-2 columns hide-for-small-only">Árbitro</div>
-                        <div class="small-12 medium-3 columns hide-for-small-only">Estadio</div>
+                        <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
+                        <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
                     </div>
                     <div class="row schedules-content" ng-repeat="match in group.group">
-                        <div class="small-12 medium-7 columns match-row">
+                        <div class="small-12 large-7 columns match-row">
                             <div class="row">
                                 <div class="small-1 columns blue">
                                     \{{match.date | date:'HH:mm'}}
                                 </div>
                                 <div class="small-11 columns">
                                     <div class="row">
-                                        <div class="small-5 columns text-right text-center-small">
-                                            <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
-                                            <div class="show-for-small-only">\{{match.home.name }}</div>
+                                        <div class="small-5 columns text-right">
+                                            <div class="text-center-small">
+                                                <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
+                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
+                                            </div>
+                                            <div class="hide-for-medium text-center-small">\{{match.home.name }}</div>
                                         </div>
                                         <div class="small-2 columns text-center">
                                             <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                         </div>
-                                        <div class="small-5 columns text-left text-center-small">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
-                                            <div class="text-inline">\{{match.away.name }}</div>
+                                        <div class="small-5 columns text-left">
+                                            <div class="text-center-small">
+                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
+                                                <div class="text-inline">\{{match.away.name }}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="small-12 medium-2 columns match-row hide-for-small-only">\{{match.official || 'Pendiente'}}</div>
-                        <div class="small-12 medium-3 columns match-row hide-for-small-only">
+                        <div class="small-12 large-2 columns match-row hide-for-small-only hide-for-medium-only">\{{match.official || 'Pendiente'}}</div>
+                        <div class="small-12 large-3 columns match-row hide-for-small-only hide-for-medium-only">
                             \{{match.stadium || ''}}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
-                                <div class="small-5 medium-5 columns text-right">
-                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="" class="team hide-for-small-only">
+                                <div class="small-3 large-5 columns text-right">
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
                                 </div>
-                                <div class="small-2 medium-2 columns text-center big">
+                                <div class="small-6 large-2 columns text-center big">
                                     <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                 </div>
-                                <div class="small-5 medium-5 columns text-left">
-                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="" class="team hide-for-small-only">
+                                <div class="small-3 large-5 columns text-left">
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -148,7 +152,7 @@
                 </div>
             </div>
             <div ng-switch-when="scorers">
-                <div class="row scorers">
+                <div class="row scorers collapse">
                     <div class="small-12 columns">
                         <table>
                             <thead>
@@ -168,8 +172,8 @@
                             <tbody>
                                 <tr ng-repeat="player in scorers">
                                     <td>\{{ player.pos }}</td>
-                                    <td class="text-right">
-                                        <img class="img-team" ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{player.team_id}}"/>
+                                    <td class="text-right logo">
+                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{player.team_id}}"/>
                                     </td>
                                     <td class="text-left">\{{ player.name }}</td>
                                     <td class="text-center">\{{ player.position }}</td>
