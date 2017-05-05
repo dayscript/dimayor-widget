@@ -132,19 +132,67 @@
                         </div>
                         <div class="small-12 large-2 columns match-row hide-for-small-only hide-for-medium-only">\{{match.official || 'Pendiente'}}</div>
                         <div class="small-12 large-3 columns match-row hide-for-small-only hide-for-medium-only">
-                            \{{match.stadium || ''}}
+                            \{{match.venue_name || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
                                 <div class="small-3 large-5 columns text-right">
-                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
+                                    <div class="row">
+                                        <div class="small-12 large-2 columns large-push-10">
+                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
+                                        </div>
+                                        <div class="small-12 large-10 columns large-pull-2 key-events">
+                                            <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
+                                                <span ng-repeat="event in events[match.id][match.home.id].yellow_cards">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                                <div class="event-img yellow-card"></div>
+                                            </div>
+                                            <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
+                                                <span ng-repeat="event in events[match.id][match.home.id].red_cards">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                                <div class="event-img red-card"></div>
+                                            </div>
+                                            <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
+                                                <span ng-repeat="event in events[match.id][match.home.id].goals">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                                <div class="event-img goals"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="small-6 large-2 columns text-center big">
                                     <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                 </div>
                                 <div class="small-3 large-5 columns text-left">
-                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
+                                    <div class="row">
+                                        <div class="small-12 large-2 columns">
+                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
+                                        </div>
+                                        <div class="small-12 large-10 columns key-events">
+                                            <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
+                                                <div class="event-img yellow-card"></div>
+                                                <span ng-repeat="event in events[match.id][match.away.id].yellow_cards">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                            </div>
+                                            <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
+                                                <div class="event-img red-card"></div>
+                                                <span ng-repeat="event in events[match.id][match.away.id].red_cards">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                            </div>
+                                            <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
+                                                <div class="event-img goals"></div>
+                                                <span ng-repeat="event in events[match.id][match.away.id].goals">
+                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
