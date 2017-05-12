@@ -91,7 +91,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "scorers"){
-             $http.get('//s3.amazonaws.com/optafeeds-prod/scorers/'+id+'/'+season+'/all.json?timestamp='+CommonFunctions.getRandomHash(),{
+            $http.get('//s3.amazonaws.com/optafeeds-prod/scorers/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -108,6 +108,26 @@ dimApp.controller('WidgetDimStatisticsController',
             }, function(response){
                 $(".widget-dim-content .loadlayer").hide(0);
             });
+        }
+
+        if(service.id == "decline"){
+            $http.get('//s3.amazonaws.com/optafeeds-prod/decline/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                } 
+            }).then(function(response){
+                $scope.decline = [];
+
+                angular.forEach(response.data.teams, function(team, team_id) {
+                    $scope.decline.push(team);
+                });
+
+                $scope.decline = $filter('orderBy')($scope.decline, '-pos', false);
+                $(".widget-dim-content .loadlayer").hide(0);
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+
         }
     };
 

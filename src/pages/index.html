@@ -237,6 +237,76 @@
                     </div>
                 </div>                        
             </div>
+            <div ng-switch-when="decline">
+                <div class="row scorers collapse">
+                    <div class="small-12 columns">
+                        <table>
+                            <thead>
+                              <th rowspan="2"></th>
+                              <th rowspan="2"></th>
+                              <th class="text-center" colspan="2">2015</th>
+                              <th class="text-center" colspan="2">2016</th>
+                              <th class="text-center" colspan="2">2017</th>
+                              <th class="text-center" colspan="8">Totales</th>
+                            </thead>
+                            <thead>
+                                <th class="text-center">Pos</th>
+                                <th class="text-center">Equipo</th>
+                                <th class="text-center" >PJ</th>
+                                <th class="text-center" >PTS</th>
+                                <th class="text-center" >PJ</th>
+                                <th class="text-center" >PTS</th>
+                                <th class="text-center" >PJ</th>
+                                <th class="text-center" >PTS</th>
+                                <th class="text-center" >PJ</th>
+                                <th class="text-center" >GF</th>
+                                <th class="text-center" >GC</th>
+                                <th class="text-center" >GD</th>
+                                <th class="text-center" >FV</th>
+                                <th class="text-center" >CV</th>
+                                <th class="text-center" >PTS</th>
+                                <th class="text-center" >PROM</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="team in decline">
+                                    <td class="text-center">\{{team.pos}}</td>
+
+                                    <td class="equipo">
+                                      <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
+                                     \{{team.name}} 
+                                    </td>
+                                    <td class="text-center">\{{team['2015_pj']}}</td>
+                                    <td class="text-center">\{{team['2015_pt']}}</td>
+                                    <td class="text-center">\{{team['2016_pj']}}</td>
+                                    <td class="text-center">\{{team['2016_pt']}}</td>
+                                    <td class="text-center">\{{team['2017_pj']}}</td>
+                                    <td class="text-center">\{{team['2017_pt']}}</td>
+                                    <td class="text-center">\{{team.pj}}</td>
+                                    <td class="text-center">\{{team.gf}}</td>
+                                    <td class="text-center">\{{team.gc}}</td>
+                                    <td class="text-center">\{{team.gd}}</td>
+                                    <td class="text-center">\{{team.gfv}}</td>
+                                    <td class="text-center">\{{team.gcv}}</td>
+                                    <td class="text-center">\{{team.pt}}</td>
+                                    <td class="text-center">\{{team.prom}}</td>
+
+                                    <!--<td class="text-center">\{{team.2015_pj}}</td>
+                                    <td class="text-center">\{{team.2016_pj}}</td>
+                                    <td class="text-center">\{{team.2016_pt}}</td>
+                                    <td class="text-center">\{{team.2017_pj}}</td>
+                                    <td class="text-center">\{{team.2017_pt}}</td>
+
+
+                                    <td class="text-center">\{{team.2015_pj}}</td>
+                                    <td class="hide-for-small-only text-center">\{{team.gc}}</td>
+                                    <td class="hide-for-small-only text-center">\{{team.gfv}}</td>
+                                    <td class="hide-for-small-only text-center">\{{team.gcv}}</td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                        
+            </div>
         </div>
         <div class="loadlayer">
             <img src="assets/img/ajax-loader.gif">
