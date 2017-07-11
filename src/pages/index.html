@@ -130,9 +130,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="small-12 large-2 columns match-row hide-for-small-only hide-for-medium-only">\{{match.official || 'Pendiente'}}</div>
+                        <div class="small-12 large-2 columns match-row hide-for-small-only hide-for-medium-only">\{{match.official | limitTo: 25 || 'Pendiente'}}</div>
                         <div class="small-12 large-3 columns match-row hide-for-small-only hide-for-medium-only">
-                            \{{match.venue_name || '' }}
+                            \{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -145,19 +145,19 @@
                                         <div class="small-12 large-10 columns large-pull-2 key-events">
                                             <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
                                                 <span ng-repeat="event in events[match.id][match.home.id].yellow_cards">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                                 <div class="event-img yellow-card"></div>
                                             </div>
                                             <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
                                                 <span ng-repeat="event in events[match.id][match.home.id].red_cards">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                                 <div class="event-img red-card"></div>
                                             </div>
                                             <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
                                                 <span ng-repeat="event in events[match.id][match.home.id].goals">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                                 <div class="event-img goals"></div>
                                             </div>
@@ -176,19 +176,19 @@
                                             <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
                                                 <div class="event-img yellow-card"></div>
                                                 <span ng-repeat="event in events[match.id][match.away.id].yellow_cards">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                             </div>
                                             <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
                                                 <div class="event-img red-card"></div>
                                                 <span ng-repeat="event in events[match.id][match.away.id].red_cards">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                             </div>
                                             <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
                                                 <div class="event-img goals"></div>
                                                 <span ng-repeat="event in events[match.id][match.away.id].goals">
-                                                    \{{ event.name}} (<span>'\{{ event.min}}</span>)
+                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
                                                 </span>
                                             </div>
                                         </div>

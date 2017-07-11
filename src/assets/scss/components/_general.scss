@@ -1,9 +1,9 @@
 body{
     font-family: $font-main;
     color:$white;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     @include breakpoint('medium') {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -23,6 +23,7 @@ table{
 
 select{
     font-family: $font-second;
+    font-size: 0.9rem;
     option{
         color: $black;    
     }
@@ -160,6 +161,7 @@ select{
     background-color: $main-color;
     text-transform: uppercase;
 
+
     .blue{
         color: $blue;    
     }
@@ -171,7 +173,8 @@ select{
 
     .schedules-content{
         background-color: $light-gray;
-        color: $black;
+        color: #222;
+        border-bottom: 1px solid #cecece;
         .match-row{
             padding-top: 8px;        
             padding-bottom: 8px;        
@@ -186,12 +189,13 @@ select{
             .big{
                 font-family: $font-main;
                 font-size:3rem;
+                margin-top: -12px;
             }
         }
     }
 
     .schedules{
-        font-size:0.8rem;
+        font-size:0.72rem;
 
         .expand{
             border-radius: 50%;
@@ -202,7 +206,7 @@ select{
             width:24px;
             height:24px;
             right:0;
-            font-size:24px;
+            font-size:23px;
             line-height: 13px;
             font-weight: bold;
             text-align: center;
