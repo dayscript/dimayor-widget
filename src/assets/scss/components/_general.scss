@@ -69,7 +69,12 @@ select{
             list-style:none;
             position: relative;
             float:left;
-            padding:5px 10px;
+            padding:10px 4px;
+            font-size: 0.8em;
+            @include breakpoint('medium'){
+                padding:5px 10px;
+                font-size: 1em;
+            }
             cursor:pointer;
             text-align:center;
 
@@ -196,6 +201,10 @@ select{
 
     .schedules{
         font-size:0.72rem;
+        .marcador{
+            font-size: 0.9rem;
+        }
+
 
         .expand{
             border-radius: 50%;
@@ -265,8 +274,8 @@ select{
     }
 
     .positions,.scorers{
-        color: $black;    
-        font-size:0.8rem;
+        color: #222;
+        font-size:0.7rem;
     }
 
     .scorers{
@@ -290,5 +299,11 @@ select{
             margin-top: 25%;
             margin-left: 49%;
         }
+    }
+}
+.equipos{
+    font-size: 0.5rem;
+    @include breakpoint(medium){
+        font-size: 0.7rem;
     }
 }
