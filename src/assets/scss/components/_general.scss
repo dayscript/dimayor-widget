@@ -197,6 +197,9 @@ select{
                 margin-top: -12px;
             }
         }
+        &:hover{
+            background-color: #e0e0e1;
+        }
     }
 
     .schedules{
@@ -271,6 +274,7 @@ select{
                 }
             }
         }
+
     }
 
     .positions,.scorers{

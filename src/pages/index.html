@@ -121,7 +121,7 @@
                                             <div class="hide-for-medium text-center-small equipos">\{{match.home.name }}</div>
                                         </div>
                                         <div class="small-2 columns text-center marcador">
-                                            <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
+                                            <a href="#" class=""><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
                                         </div>
                                         <div class="small-5 columns text-left">
                                             <div class="text-center-small">
@@ -168,7 +168,8 @@
                                     </div>
                                 </div>
                                 <div class="small-6 large-2 columns text-center big">
-                                    <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
+
+                                    <a href="#"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
                                 </div>
                                 <div class="small-3 large-5 columns text-left">
                                     <div class="row">
