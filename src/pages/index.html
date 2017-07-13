@@ -86,14 +86,14 @@
             </div>
             <div ng-switch-when="schedules">
                 <div class="row collapse">
-                    <div class="small-12 large-4 columns">
+                    <div class="small-12 medium-10 large-4 columns">
                         <select 
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
                         ng-options="round as round.name for round in rounds">
                         </select>
                     </div>
-                    <div class="large-2 columns hide-for-small-only">
+                    <div class="medium-2 columns hide-for-small-only">
                         <img src="assets/img/opta.png" alt="By OPTA" class="opta">
                     </div>
                 </div>  
