@@ -259,7 +259,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            $http.get('getCriticalEvents','//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            $http.get('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
                     console.log('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json');
                 $('.match-'+match.id).show(300);
