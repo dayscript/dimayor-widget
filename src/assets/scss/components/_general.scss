@@ -95,6 +95,9 @@ select{
             &.tournament-747.active{
                 background-color: #f7c634;
             }
+            &.tournament-847.active{
+                background-color: #d1154f;
+            }
 
             @include breakpoint('medium') {
                 padding:10px 15px;
@@ -157,7 +160,11 @@ select{
 
             &.tournament-747{
                 background-color: #f7c634;
-            }           
+            }
+
+            &.tournament-847{
+                background-color: #d1154f;
+            }
         } 
     }
 }
