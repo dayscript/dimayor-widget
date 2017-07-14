@@ -48,7 +48,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
         /**/
         if(service.id == "reclassification"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/reclassification/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/reclassification/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -74,7 +74,7 @@ dimApp.controller('WidgetDimStatisticsController',
         /**/
 
         if(service.id == "schedules"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/summary/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -113,7 +113,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "positions"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/summary/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -142,7 +142,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "scorers"){
-            $http.get('//s3.amazonaws.com/optafeeds-prod/scorers/'+id+'/'+season+'/all.json',{
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/scorers/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -163,7 +163,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "decline"){
-            $http.get('//s3.amazonaws.com/optafeeds-prod/decline/'+id+'/'+season+'/all.json',{
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/decline/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 } 
@@ -186,7 +186,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getSchedulesMatches = function(id, season, round){
         $(".widget-dim-content .loadlayer").show(0);
-        $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
+        $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
             headers: {
                 'Cache-Control' : 'no-cache'
             } 
@@ -224,7 +224,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getPositions = function(id, season, phase){
         $(".widget-dim-content .loadlayer").show(0);
-        $http.get('//s3.amazonaws.com/optafeeds-prod/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
+        $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
             headers: {
                 'Cache-Control' : 'no-cache'
             } 
@@ -275,7 +275,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            $http.get('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
                     
                 $('.match-'+match.id).show(300);
