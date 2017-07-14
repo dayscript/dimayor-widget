@@ -69,11 +69,13 @@ select{
             list-style:none;
             position: relative;
             float:left;
-            padding:10px 4px;
+            padding:20px 8px;
             font-size: 0.8em;
+            min-height: 60px;
             @include breakpoint('medium'){
                 padding:5px 10px;
                 font-size: 1em;
+                min-height: inherit;
             }
             cursor:pointer;
             text-align:center;
@@ -182,7 +184,37 @@ select{
         border-bottom: 1px solid #cecece;
         .match-row{
             padding-top: 8px;        
-            padding-bottom: 8px;        
+            padding-bottom: 8px;
+            strong{
+                font-weight: normal;
+                display:inline-block;
+                color:#00aeef;
+                margin-right: 8px;
+                @include breakpoint('large') {
+                    display: none;
+                }
+            }
+
+            &.movil{
+                text-align: right;
+                @include breakpoint('large'){
+                    text-align: left;
+                }
+            }
+            &.movil-small{
+                text-align: center;
+                margin-top: -14px;
+                @include breakpoint('medium'){
+                    text-align: left;
+                    margin-top: 0px;
+                }
+                &.izq{
+                    text-align: center;
+                    @include breakpoint('medium'){
+                        text-align: right;
+                    }
+                }
+            }
         }
 
         .match-detail{
@@ -205,7 +237,8 @@ select{
     .schedules{
         font-size:0.72rem;
         .marcador{
-            font-size: 0.9rem;
+            font-size: 0.74rem;
+            letter-spacing: -1px;
         }
 
 
@@ -214,7 +247,7 @@ select{
             border: 3px solid $dark-gray;
             color: $dark-gray;
             float:right;
-            display:inline-block;
+            display:none;
             width:24px;
             height:24px;
             right:0;
@@ -222,6 +255,14 @@ select{
             line-height: 13px;
             font-weight: bold;
             text-align: center;
+            margin-top: -22px;
+            @include breakpoint(large){
+                margin-top: 0px;
+            }
+            @include breakpoint(medium){
+                display:inline-block;
+            }
+
         }
         .key-events{
             font-family: $font-main;
@@ -314,4 +355,10 @@ select{
 .opta{
     float: right;
     padding-top: 8px;
+}
+.detalle{
+    font-size: 0.5rem;
+    @include breakpoint(large){
+        font-size: 1em;
+    }
 }
