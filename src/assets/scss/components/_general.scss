@@ -81,19 +81,19 @@ select{
             text-align:center;
 
             &.tournament-589.active{
-                background-color: #f7c634;        
+                background-color: #f7c634;
             }
 
             &.tournament-664.active{
-                background-color: #eb0e66;        
+                background-color: #0064fa;
             }
 
             &.tournament-625.active{
-                background-color: #0064fa;        
+                background-color: #eb0e66;
             }
 
             &.tournament-747.active{
-                background-color: #7328b0;        
+                background-color: #f7c634;
             }
 
             @include breakpoint('medium') {
@@ -148,15 +148,15 @@ select{
             }
 
             &.tournament-664{
-                background-color: #eb0e66;        
+                background-color: #0064fa;
             }
 
             &.tournament-625{
-                background-color: #0064fa;        
+                background-color: #eb0e66;
             }
 
             &.tournament-747{
-                background-color: #7328b0;        
+                background-color: #f7c634;
             }           
         } 
     }
