@@ -30,7 +30,7 @@
         ng-options="tab as tab.name for tab in active_tournament_tabs">
         </select>
         <div ng-switch="active_tournament_tab.id">
-            <div ng-switch-when="positions|reclassification" ng-switch-when-separator="|">
+            <div ng-switch-when="positions">
                 <div class="row collapse">
                     <div class="small-12 large-4 columns">
                         <select 
@@ -312,6 +312,46 @@
                     </div>
                 </div>                        
             </div>
+            <!-- -->
+            <div ng-switch-when="reclassification">
+                <div class="row positions collapse">
+                    <div class="small-12 columns">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="text-center" title="Posición">Pos</th>
+                                    <th></th>
+                                    <th class="text-center">Equipo</th>
+                                    <th class="text-center" title="Puntos Totales">PT</th>
+                                    <th class="text-center" title="Partidos Jugados">PJ</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Goles a Favor">GF</th>
+                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Diferencia de Gol">DG</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra">GC</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles a Favor como Visitante">GFV</th>
+                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra como Visitante">GCV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="team in reclassification | orderBy:'id'">
+                                    <td class="text-center">\{{team.data.pos}}</td>
+                                    <td class="text-right logo">
+                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.data.id}}" alt="">
+                                    </td>
+                                    <td class="text-left">\{{team.data.name}}</td>
+                                    <td class="text-center">\{{team.data.pt}}</td>
+                                    <td class="text-center">\{{team.data.pj}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.data.gf}}</td>
+                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.data.gd}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gc}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gfv}}</td>
+                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gcv}}</td>
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>   
+            </div>
+            <!-- -->
         </div>
         <div class="loadlayer">
             <img src="assets/img/ajax-loader.gif">
