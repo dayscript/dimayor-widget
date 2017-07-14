@@ -10,7 +10,7 @@
             </li>
         </ul>
         <div class="clear-both"></div>
-        <ul class="submenu hide-for-small-only hide-for-medium-only \{{ 'tournament-'+tournament.id }}">
+        <ul class="submenu hide-for-small-only  \{{ 'tournament-'+tournament.id }}">
             <li
             ng-repeat="tab in active_tournament_tabs" 
             ng-click="getData(tournament.id, tournament.season, tab)"
