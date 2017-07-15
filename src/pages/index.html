@@ -3,7 +3,7 @@
         <ul>
             <li
             class="\{{ 'tournament-'+tab.id+' tabs-'+tabs.length}}"
-            ng-repeat="tab in tabs" 
+            ng-repeat="tab in tabs"
             ng-click="getTournament(tab)"
             ng-class="tab == tournament ? 'active' : ''">
                 \{{ tab.title }}
@@ -12,7 +12,7 @@
         <div class="clear-both"></div>
         <ul class="submenu hide-for-small-only  \{{ 'tournament-'+tournament.id }}">
             <li
-            ng-repeat="tab in active_tournament_tabs" 
+            ng-repeat="tab in active_tournament_tabs"
             ng-click="getData(tournament.id, tournament.season, tab)"
             ng-class="'tabs-'+active_tournament_tabs.length">
                 <span ng-class="tab == active_tournament_tab ? 'active' : ''">
@@ -33,7 +33,7 @@
             <div ng-switch-when="positions">
                 <div class="row collapse">
                     <div class="small-12 large-4 columns">
-                        <select 
+                        <select
                         ng-change="getPositions(tournament.id, tournament.season, phase)"
                         ng-model="phase"
                         ng-options="phase as phase.name for phase in phases">
@@ -78,16 +78,16 @@
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gc}}</td>
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gfv}}</td>
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gcv}}</td>
-                                </tr>    
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>                
+                </div>
             </div>
             <div ng-switch-when="schedules">
                 <div class="row collapse">
                     <div class="small-12 medium-10 large-4 columns">
-                        <select 
+                        <select
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
                         ng-options="round as round.name for round in rounds">
@@ -96,11 +96,11 @@
                     <div class="medium-2 columns hide-for-small-only">
                         <img src="assets/img/opta.png" alt="By OPTA" class="opta">
                     </div>
-                </div>  
+                </div>
                 <div ng-repeat="(key, group) in matches" class="schedules">
                     <div class="row schedules-titles">
                         <div class="small-12 large-7 columns">
-                            \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd yyyy' }}
+                            \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd' }}
                         </div>
                         <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
                         <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
@@ -120,7 +120,13 @@
                                             </div>
                                             <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
                                         </div>
-                                        <div class="small-2 columns text-center marcador">
+                                        <div class="small-2 columns text-center marcador " ng-if="showGamecast(tnmmt)">
+                                            <a href="/gamecast?&competition=\{{ tnmmt }}&season=\{{ season }}&match=\{{ match.id }}" class="">
+                                              <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>
+                                              \{{match.home.score}} - \{{match.away.score}}
+                                              <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                                        </div>
+                                        <div class="small-2 columns text-center marcador"  ng-if=" tnmmt != 589">
                                             <a href="#" class=""><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
                                         </div>
                                         <div class="small-5 columns text-left">
@@ -240,7 +246,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>                        
+                </div>
             </div>
             <div ng-switch-when="decline">
                 <div class="row scorers collapse">
@@ -310,7 +316,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>                        
+                </div>
             </div>
             <!-- -->
             <div ng-switch-when="reclassification">
@@ -345,11 +351,11 @@
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gc}}</td>
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gfv}}</td>
                                     <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gcv}}</td>
-                                </tr>    
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>   
+                </div>
             </div>
             <!-- -->
         </div>
