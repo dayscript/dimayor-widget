@@ -3,7 +3,7 @@
         <ul>
             <li
             class="\{{ 'tournament-'+tab.id+' tabs-'+tabs.length}}"
-            ng-repeat="tab in tabs" 
+            ng-repeat="tab in tabs | orderBy:'ord'" 
             ng-click="getTournament(tab)"
             ng-class="tab == tournament ? 'active' : ''">
                 \{{ tab.title }}
@@ -31,7 +31,7 @@
         </select>
         <div ng-switch="active_tournament_tab.id">
             <div ng-switch-when="positions">
-                <div class="row collapse">
+                <div class="row collapse" ng-if="trnmnt != 847">
                     <div class="small-12 large-4 columns">
                         <select 
                         ng-change="getPositions(tournament.id, tournament.season, phase)"
@@ -40,7 +40,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="row positions collapse">
+
+                <div class="row" ng-if="trnmnt == 847">
+                    Sin información
+                </div> 
+
+                <div class="row positions collapse" ng-if="trnmnt != 847">
                     <div class="small-12 columns">
                         <table
                         ng-repeat="stage in stages track by stage.id">
@@ -86,7 +91,7 @@
             </div>
             <div ng-switch-when="schedules">
                 <div class="row collapse">
-                    <div class="small-12 medium-10 large-4 columns">
+                    <div class="small-12 medium-10 large-4 columns" ng-if="trnmnt != 847">
                         <select 
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
@@ -96,8 +101,12 @@
                     <div class="medium-2 columns hide-for-small-only">
                         <img src="assets/img/opta.png" alt="By OPTA" class="opta">
                     </div>
-                </div>  
-                <div ng-repeat="(key, group) in matches" class="schedules">
+                </div> 
+                <div class="row" ng-if="trnmnt == 847">
+                    Sin información
+                </div> 
+
+                <div ng-repeat="(key, group) in matches" class="schedules" ng-if="trnmnt != 847">
                     <div class="row schedules-titles">
                         <div class="small-12 large-7 columns">
                             \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd yyyy' }}
