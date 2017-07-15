@@ -4,7 +4,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.events = {};
 
-    $http.get('//s3-us-west-2.amazonaws.com/winsports-new/widget-win-tournament.json',{
+    $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/tournaments/widget-win-tournament.json',{
         headers: {
             'Cache-Control' : 'no-cache'
         }
@@ -17,7 +17,7 @@ dimApp.controller('WidgetDimStatisticsController',
         $(".widget-dim-content .loadlayer").show(0);
         $scope.tournament = tournament;
 
-            if(tournament.title=="Copa Aguila"){
+           /* if(tournament.title=="Copa Aguila"){
                for (var i = 0; i < tournament.tabs.length; i++) {
                     if(tournament.tabs[i].id=="results"){
                         tournament.tabs.splice(i,1);
@@ -36,7 +36,7 @@ dimApp.controller('WidgetDimStatisticsController',
                         var aux = [];   aux.$$hashKey = "object:15";  aux.id = "scorers";    aux.name = "Goleadores";
                         tournament.tabs.push(aux);
                     }
-            }
+            }*/
 
         $scope.active_tournament_tabs = tournament.tabs;
         $scope.getData(tournament.id, tournament.season, tournament.tabs[1]);
@@ -79,32 +79,35 @@ dimApp.controller('WidgetDimStatisticsController',
                     'Cache-Control' : 'no-cache'
                 }
             }).then(function(response){
+                $scope.trnmnt = id;
+                if(response.data.competition){
+                    $scope.rounds = [];
+                    $scope.round = null;
+                    var index = 0;
+                    var competition = response.data;
 
-                $scope.rounds = [];
-                $scope.round = null;
-                var index = 0;
+                    angular.forEach(competition.phases, function(phase, phase_id) {
+                        angular.forEach(phase.rounds, function(round, round_id) {
+                            $scope.rounds.push({
+                                id: round_id,
+                                name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)+' - '+'Fecha '+round.number
+                            });
 
-                var competition = response.data;
+                            if(phase.phase.id == competition.competition.active_phase_id && round.id == competition.competition.active_round_id){
+                                $scope.round = $scope.rounds[index];
+                                $scope.getSchedulesMatches(id, season, $scope.round);
+                            }
 
-                angular.forEach(competition.phases, function(phase, phase_id) {
-                    angular.forEach(phase.rounds, function(round, round_id) {
-                        $scope.rounds.push({
-                            id: round_id,
-                            name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)+' - '+'Fecha '+round.number
+                            index++;
                         });
-
-                        if(phase.phase.id == competition.competition.active_phase_id && round.id == competition.competition.active_round_id){
-                            $scope.round = $scope.rounds[index];
-                            $scope.getSchedulesMatches(id, season, $scope.round);
-                        }
-
-                        index++;
                     });
-                });
 
-                if($scope.round == null){
-                    $scope.round = $scope.rounds[index-1];
-                    $scope.getSchedulesMatches(id, season, $scope.round);
+                    if($scope.round == null){
+                        $scope.round = $scope.rounds[index-1];
+                        $scope.getSchedulesMatches(id, season, $scope.round);
+                    }
+                }else{
+                    $(".widget-dim-content .loadlayer").hide(0);
                 }
 
             }, function(response){
@@ -118,31 +121,35 @@ dimApp.controller('WidgetDimStatisticsController',
                     'Cache-Control' : 'no-cache'
                 }
             }).then(function(response){
+                $scope.trnmnt = id;
+                if(response.data.competition){
+                    var phase_id = response.data.competition.active_phase_id;
+                    $scope.phases = [];
 
-                var phase_id = response.data.competition.active_phase_id;
-                $scope.phases = [];
+                    angular.forEach(response.data.phases, function(phase, key) {
+                        var temp = {
+                            id: key,
+                            name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)
+                        };
 
-                angular.forEach(response.data.phases, function(phase, key) {
-                    var temp = {
-                        id: key,
-                        name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)
-                    };
+                        $scope.phases.push(temp);
 
-                    $scope.phases.push(temp);
+                        if(key == phase_id){
+                            $scope.phase = temp;
+                        }
+                    });
 
-                    if(key == phase_id){
-                        $scope.phase = temp;
-                    }
-                });
-
-                $scope.getPositions(id, season, $scope.phase);
+                    $scope.getPositions(id, season, $scope.phase);
+                }else{
+                    $(".widget-dim-content .loadlayer").hide(0);
+                }
             }, function(response){
                 $(".widget-dim-content .loadlayer").hide(0);
             });
         }
 
         if(service.id == "scorers"){
-            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/scorers/'+id+'/'+season+'/all.json',{
+            $http.get('//s3.amazonaws.com/optafeeds-prod/scorers/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
@@ -163,7 +170,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "decline"){
-            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/decline/'+id+'/'+season+'/all.json',{
+            $http.get('//s3.amazonaws.com/optafeeds-prod/decline/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
@@ -191,9 +198,8 @@ dimApp.controller('WidgetDimStatisticsController',
                 'Cache-Control' : 'no-cache'
             }
         }).then(function(response){
+
             $scope.matches = {};
-            $scope.season = season;
-            $scope.tnmmt = id;
             var matches = [];
 
             angular.forEach(response.data.matches, function(match, match_id) {
@@ -201,19 +207,22 @@ dimApp.controller('WidgetDimStatisticsController',
             });
 
             matches = $filter('orderBy')(matches, "date", false);
+
             angular.forEach(matches, function(match, key) {
                 var this_date = match.date.split(' ')[0];
-                match.date = new Date(match.date.replace(' ','T')).getTime();
+                match.date = new Date(match.date).getTime();
+
                 if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
                 }else{
                     $scope.matches[this_date] = {
                         time: match.date,
                         // tis: match.tis,
-                        group: [match],
+                        group: [match]
                     };
                 }
             });
+
             $(".widget-dim-content .loadlayer").hide(0);
         }, function(response){
             $(".widget-dim-content .loadlayer").hide(0);
@@ -222,7 +231,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getPositions = function(id, season, phase){
         $(".widget-dim-content .loadlayer").show(0);
-        $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
+        $http.get('//s3.amazonaws.com/optafeeds-prod/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
             headers: {
                 'Cache-Control' : 'no-cache'
             }
@@ -273,7 +282,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            $http.get('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
 
                 $('.match-'+match.id).show(300);
@@ -371,4 +380,5 @@ dimApp.controller('WidgetDimStatisticsController',
           return false;
         }
     }
+
 }]);
