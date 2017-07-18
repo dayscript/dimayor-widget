@@ -190,8 +190,11 @@ dimApp.controller('WidgetDimStatisticsController',
                 var new_date = this_date; 
                 var new_hour = match.date.split(' ')[1];
                 match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1]; 
-                match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
-                
+                if(id=="589"){
+                    match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
+                }else{
+                    match.href = "#";
+                }
                 if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
                 }else{
