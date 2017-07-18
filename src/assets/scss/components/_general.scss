@@ -177,7 +177,7 @@ select{
 
 
     .blue{
-        color: $blue;    
+        color: $blue;
     }
 
     .schedules-titles{
@@ -195,7 +195,7 @@ select{
             strong{
                 font-weight: normal;
                 display:inline-block;
-                color:#00aeef;
+                color:$blue;
                 margin-right: 8px;
                 @include breakpoint('large') {
                     display: none;
@@ -232,7 +232,8 @@ select{
             display:none;
             .big{
                 font-family: $font-main;
-                font-size:3rem;
+                font-size:2.6rem;
+                letter-spacing: -3px;
                 margin-top: -12px;
             }
         }
