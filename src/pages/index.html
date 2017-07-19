@@ -132,11 +132,11 @@
                                                 <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                             </a>
 
-                                            <a href="#" style="color: #A4A4A4" ng-if="match.period == 'PreMatch'">
+                                            <a target="_blank" href="\{{match.href}}" style="color: #A4A4A4" ng-if="match.period == 'PreMatch'">
                                                 <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                             </a>
 
-                                            <a target="_blank" href="\{{match.href}}" style="color: #0dac0d" ng-if="match.period == 'FirstHalf' || match.period == 'SecondHalf' &&  match.href!='#'">
+                                            <a target="_blank" href="\{{match.href}}" style="color: #0dac0d" ng-if="match.period == 'FirstHalf' || match.period == 'SecondHalf' || match.period =='HalfTime' &&  match.href!='#'">
                                                 <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                             </a>
 
