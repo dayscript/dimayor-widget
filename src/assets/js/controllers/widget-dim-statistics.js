@@ -16,28 +16,6 @@ dimApp.controller('WidgetDimStatisticsController',
     $scope.getTournament = function(tournament){
         $(".widget-dim-content .loadlayer").show(0);
         $scope.tournament = tournament;
-
-           /* if(tournament.title=="Copa Aguila"){
-               for (var i = 0; i < tournament.tabs.length; i++) {
-                    if(tournament.tabs[i].id=="results"){
-                        tournament.tabs.splice(i,1);
-                    }
-                }
-            }
-            if(tournament.title=="Torneo Aguila"){
-               for (var i = 0; i < tournament.tabs.length; i++) {
-                    if(tournament.tabs[i].id=="results"){
-                        tournament.tabs.splice(i,1);
-                    }
-                }
-                    if(tournament.tabs.length=="2"){
-                        var aux = [];   aux.$$hashKey = "object:14";  aux.id = "reclassification";    aux.name = "Reclasificación";
-                        tournament.tabs.push(aux);
-                        var aux = [];   aux.$$hashKey = "object:15";  aux.id = "scorers";    aux.name = "Goleadores";
-                        tournament.tabs.push(aux);
-                    }
-            }*/
-
         $scope.active_tournament_tabs = tournament.tabs;
         $scope.getData(tournament.id, tournament.season, tournament.tabs[1]);
     }
@@ -46,9 +24,8 @@ dimApp.controller('WidgetDimStatisticsController',
         $(".widget-dim-content .loadlayer").show(0);
         $scope.active_tournament_tab = service;
 
-        /**/
         if(service.id == "reclassification"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/reclassification/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/reclassification/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
@@ -71,16 +48,16 @@ dimApp.controller('WidgetDimStatisticsController',
                 $(".widget-dim-content .loadlayer").hide(0);
             });
         }
-        /**/
 
         if(service.id == "schedules"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/summary/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
             }).then(function(response){
-                $scope.trnmnt = id;
-                if(response.data.competition){
+                /*$scope.trnmnt = id;
+                if(response.data.competition){*/ 
+                    console.log(response);
                     $scope.rounds = [];
                     $scope.round = null;
                     var index = 0;
@@ -106,9 +83,9 @@ dimApp.controller('WidgetDimStatisticsController',
                         $scope.round = $scope.rounds[index-1];
                         $scope.getSchedulesMatches(id, season, $scope.round);
                     }
-                }else{
+                /*}else{*/
                     $(".widget-dim-content .loadlayer").hide(0);
-                }
+                /*}*/
 
             }, function(response){
                 $(".widget-dim-content .loadlayer").hide(0);
@@ -116,13 +93,13 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "positions"){
-            $http.get('https://s3.amazonaws.com/optafeeds-prod/summary/'+id+'/'+season+'/all.json',{
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
             }).then(function(response){
-                $scope.trnmnt = id;
-                if(response.data.competition){
+                /*$scope.trnmnt = id;
+                if(response.data.competition){*/
                     var phase_id = response.data.competition.active_phase_id;
                     $scope.phases = [];
 
@@ -140,16 +117,16 @@ dimApp.controller('WidgetDimStatisticsController',
                     });
 
                     $scope.getPositions(id, season, $scope.phase);
-                }else{
+                /*}else{*/
                     $(".widget-dim-content .loadlayer").hide(0);
-                }
+                /*}*/
             }, function(response){
                 $(".widget-dim-content .loadlayer").hide(0);
             });
         }
 
         if(service.id == "scorers"){
-            $http.get('//s3.amazonaws.com/optafeeds-prod/scorers/'+id+'/'+season+'/all.json',{
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/scorers/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
@@ -170,7 +147,7 @@ dimApp.controller('WidgetDimStatisticsController',
         }
 
         if(service.id == "decline"){
-            $http.get('//s3.amazonaws.com/optafeeds-prod/decline/'+id+'/'+season+'/all.json',{
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/decline/'+id+'/'+season+'/all.json',{
                 headers: {
                     'Cache-Control' : 'no-cache'
                 }
@@ -193,12 +170,12 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getSchedulesMatches = function(id, season, round){
         $(".widget-dim-content .loadlayer").show(0);
-        $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
+        $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
             headers: {
                 'Cache-Control' : 'no-cache'
             }
         }).then(function(response){
-
+            
             $scope.matches = {};
             var matches = [];
 
@@ -210,13 +187,19 @@ dimApp.controller('WidgetDimStatisticsController',
 
             angular.forEach(matches, function(match, key) {
                 var this_date = match.date.split(' ')[0];
-                match.date = new Date(match.date).getTime();
-
+                var new_date = this_date; 
+                var new_hour = match.date.split(' ')[1];
+                match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1]; 
+                if(id=="589"){
+                    match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
+                }else{
+                    match.href = "#";
+                }
                 if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
                 }else{
                     $scope.matches[this_date] = {
-                        time: match.date,
+                        time: new_date,
                         // tis: match.tis,
                         group: [match]
                     };
@@ -231,7 +214,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getPositions = function(id, season, phase){
         $(".widget-dim-content .loadlayer").show(0);
-        $http.get('//s3.amazonaws.com/optafeeds-prod/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
+        $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/positions/'+id+'/'+season+'/phases/'+phase.id+'.json', {
             headers: {
                 'Cache-Control' : 'no-cache'
             }
@@ -282,74 +265,70 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            $http.get('//s3.amazonaws.com/optafeeds-prod/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
 
                 $('.match-'+match.id).show(300);
                 $this.text('-');
 
                 var formation = response.data
-                $scope.events[match.id] = {};
 
+                $scope.events[match.id] = {};
                 $scope.events[match.id][match.home.id] = {
                     "yellow_cards" : [],
                     "red_cards" : [],
                     "goals" : []
-                }
-
-                angular.forEach(formation.teams[match.home.id].players.Start, function(player, id){
-                    angular.forEach(player.events, function(event, event_id){
-                        if(event.type == "yellow-card"){
-                            $scope.events[match.id][match.home.id].yellow_cards.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
-
-                        if(event.type == "red-card"){
-                            $scope.events[match.id][match.home.id].red_cards.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
-
-                        if(event.type == "goal" || event.type == "GOAL"){
-                            $scope.events[match.id][match.home.id].goals.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
-                    });
-                });
-
+                } 
                 $scope.events[match.id][match.away.id] = {
                     "yellow_cards" : [],
                     "red_cards" : [],
                     "goals" : []
                 }
-
-                angular.forEach(formation.teams[match.away.id].players.Start, function(player, id){
-                    angular.forEach(player.events, function(event, event_id){
-                        if(event.type == "yellow-card"){
-                            $scope.events[match.id][match.away.id].yellow_cards.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
-
-                        if(event.type == "red-card"){
-                            $scope.events[match.id][match.away.id].red_cards.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
-
-                        if(event.type == "goal"){
-                            $scope.events[match.id][match.away.id].goals.push({
-                                name: player.name,
-                                min: event.min,
-                            });
-                        }
+                
+                angular.forEach(formation.teams, function(team, id_team){
+                    angular.forEach(team.players.Start, function(player, id_player){
+                        angular.forEach(player.events, function(event, id_event){
+                            if(event.type == "yellow-card"){ 
+                                $scope.events[match.id][id_team].yellow_cards.push({
+                                    name: player.name,
+                                    min: event.min,
+                                }); 
+                            }
+                            if(event.type == "red-card"){
+                                $scope.events[match.id][id_team].red_cards.push({
+                                    name: player.name,
+                                    min: event.min,
+                                });
+                            }
+                            if(event.type == "goal" || event.type == "Goal"){
+                                $scope.events[match.id][id_team].goals.push({
+                                    name: player.name,
+                                    min: event.min,
+                                });
+                            }
+                        });
+                    });
+                    angular.forEach(team.players.Sub, function(player, id_player){
+                        angular.forEach(player.events, function(event, id_event){
+                            if(event.type == "yellow-card"){ 
+                                $scope.events[match.id][id_team].yellow_cards.push({
+                                    name: player.name,
+                                    min: event.min,
+                                }); 
+                            }
+                            if(event.type == "red-card"){
+                                $scope.events[match.id][id_team].red_cards.push({
+                                    name: player.name,
+                                    min: event.min,
+                                });
+                            }
+                            if(event.type == "goal" || event.type == "Goal"){
+                                $scope.events[match.id][id_team].goals.push({
+                                    name: player.name,
+                                    min: event.min,
+                                });
+                            }
+                        });
                     });
                 });
             }, function (response){
