@@ -360,13 +360,20 @@ select{
         font-size: 0.7rem;
     }
 }
-.opta{
-    float: right;
-    padding-top: 8px;
-}
+
 .detalle{
     font-size: 0.5rem;
     @include breakpoint(large){
         font-size: 1em;
+    }
+}
+.firma{
+    font-size: 0.8em;
+    float: right;
+    margin-bottom: 8px;
+    .opta{
+        float: right;
+        padding-top: 8px;
+        display: block;
     }
 }
