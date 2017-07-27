@@ -56,8 +56,8 @@ dimApp.controller('WidgetDimStatisticsController',
                 }
             }).then(function(response){
                 /*$scope.trnmnt = id;
-                if(response.data.competition){*/ 
-                    console.log(response);
+                if(response.data.competition)
+                    console.log(response);{*/ 
                     $scope.rounds = [];
                     $scope.round = null;
                     var index = 0;
@@ -185,16 +185,28 @@ dimApp.controller('WidgetDimStatisticsController',
 
             matches = $filter('orderBy')(matches, "date", false);
 
-            angular.forEach(matches, function(match, key) {
+            angular.forEach(matches, function(match, key) { 
+                //Cambiar formato periodo del partido
+                match.period = match.period.toUpperCase();
+
+                var actual = new Date(); 
+                var inicio = new Date(match.date);
+                var fin = new Date(inicio.setSeconds(7200));   
+                if(match.period != 'FULLTIME' && actual > fin) {
+                    match.period = "FULLTIME";
+                }
+
                 var this_date = match.date.split(' ')[0];
                 var new_date = this_date; 
                 var new_hour = match.date.split(' ')[1];
                 match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1]; 
+
                 if(id=="589"){
                     match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
                 }else{
                     match.href = "#";
                 }
+
                 if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
                 }else{
@@ -205,7 +217,7 @@ dimApp.controller('WidgetDimStatisticsController',
                     };
                 }
             });
-
+        console.log("scope",$scope);
             $(".widget-dim-content .loadlayer").hide(0);
         }, function(response){
             $(".widget-dim-content .loadlayer").hide(0);
