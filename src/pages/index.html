@@ -126,22 +126,22 @@
                                             </div>
                                             <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
                                         </div>
-                                        <div class="small-2 columns text-center marcador">
+                                        <div class="small-2 columns text-center marcador" ng-switch='match.period'>
 
-                                           <!--Partido LIGA terminado-->    
-                                           <a target="_blank" href="\{{match.href}}" ng-if="match.period=='FULLTIME' &&  match.href!='#'" style="color: #0064fa">
+                                           <!--Partido terminado-->
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
-                                           <!--Partido terminado--> 
-                                           <a href="#" ng-if="match.period=='FULLTIME' &&  match.href=='#'" style="color: #0064fa">
+                                           <!--Partido sin jugar-->
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="PREMATCH | POSTPONED"  style="color: #A4A4A4">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
-                                           <!--Partido sin jugar--> 
-                                           <a target="_blank" href="\{{match.href}}" ng-if="match.period=='PREMATCH' || match.period=='POSTPONED'"  style="color: #A4A4A4">
+                                           <!--Partido en juego-->
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF | SECONDHALF | HALFTIME" style="color: #0dac0d">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
-                                           <!--Partido en juego--> 
-                                           <a target="_blank" href="\{{match.href}}" ng-if="match.period=='FIRSTHALF' || match.period=='SECONDHALF' || match.period=='HALFTIME'" style="color: #0dac0d">
+                                           <!--Partido en por si acaso-->
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
 

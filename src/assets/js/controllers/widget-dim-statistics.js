@@ -57,7 +57,7 @@ dimApp.controller('WidgetDimStatisticsController',
             }).then(function(response){
                 /*$scope.trnmnt = id;
                 if(response.data.competition)
-                    console.log(response);{*/ 
+                    console.log(response);{*/
                     $scope.rounds = [];
                     $scope.round = null;
                     var index = 0;
@@ -175,7 +175,7 @@ dimApp.controller('WidgetDimStatisticsController',
                 'Cache-Control' : 'no-cache'
             }
         }).then(function(response){
-            
+
             $scope.matches = {};
             var matches = [];
 
@@ -185,21 +185,21 @@ dimApp.controller('WidgetDimStatisticsController',
 
             matches = $filter('orderBy')(matches, "date", false);
 
-            angular.forEach(matches, function(match, key) { 
+            angular.forEach(matches, function(match, key) {
                 //Cambiar formato periodo del partido
                 match.period = match.period.toUpperCase();
 
-                var actual = new Date(); 
+                var actual = new Date();
                 var inicio = new Date(match.date);
-                var fin = new Date(inicio.setSeconds(7200));   
+                var fin = new Date(inicio.setSeconds(7200));
                 if(match.period != 'FULLTIME' && actual > fin) {
                     match.period = "FULLTIME";
                 }
 
                 var this_date = match.date.split(' ')[0];
-                var new_date = this_date; 
+                var new_date = this_date;
                 var new_hour = match.date.split(' ')[1];
-                match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1]; 
+                match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1];
 
                 if(id=="589"){
                     match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
@@ -216,8 +216,9 @@ dimApp.controller('WidgetDimStatisticsController',
                         group: [match]
                     };
                 }
+                console.log("scope",$scope.matches);
             });
-        //console.log("scope",$scope);
+
             $(".widget-dim-content .loadlayer").hide(0);
         }, function(response){
             $(".widget-dim-content .loadlayer").hide(0);
@@ -290,21 +291,21 @@ dimApp.controller('WidgetDimStatisticsController',
                     "yellow_cards" : [],
                     "red_cards" : [],
                     "goals" : []
-                } 
+                }
                 $scope.events[match.id][match.away.id] = {
                     "yellow_cards" : [],
                     "red_cards" : [],
                     "goals" : []
                 }
-                
+
                 angular.forEach(formation.teams, function(team, id_team){
                     angular.forEach(team.players.Start, function(player, id_player){
                         angular.forEach(player.events, function(event, id_event){
-                            if(event.type == "yellow-card"){ 
+                            if(event.type == "yellow-card"){
                                 $scope.events[match.id][id_team].yellow_cards.push({
                                     name: player.name,
                                     min: event.min,
-                                }); 
+                                });
                             }
                             if(event.type == "red-card"){
                                 $scope.events[match.id][id_team].red_cards.push({
@@ -322,11 +323,11 @@ dimApp.controller('WidgetDimStatisticsController',
                     });
                     angular.forEach(team.players.Sub, function(player, id_player){
                         angular.forEach(player.events, function(event, id_event){
-                            if(event.type == "yellow-card"){ 
+                            if(event.type == "yellow-card"){
                                 $scope.events[match.id][id_team].yellow_cards.push({
                                     name: player.name,
                                     min: event.min,
-                                }); 
+                                });
                             }
                             if(event.type == "red-card"){
                                 $scope.events[match.id][id_team].red_cards.push({
@@ -364,8 +365,8 @@ dimApp.controller('WidgetDimStatisticsController',
         }
     }
 
-    $scope.showGamecast = function (trnmnt) {
-        if( trnmnt == 589) {
+    $scope.showGamecast = function (href) {
+        if( href != '#') {
             return true;
         }else {
           return false;
