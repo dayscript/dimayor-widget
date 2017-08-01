@@ -65,9 +65,11 @@ dimApp.controller('WidgetDimStatisticsController',
 
                     angular.forEach(competition.phases, function(phase, phase_id) {
                         angular.forEach(phase.rounds, function(round, round_id) {
+
                             $scope.rounds.push({
                                 id: round_id,
-                                name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)+' - '+'Fecha '+round.number
+                                name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)+' - '+'Fecha '+round.number,
+                                id_round: round.number
                             });
 
                             if(phase.phase.id == competition.competition.active_phase_id && round.id == competition.competition.active_round_id){
@@ -182,7 +184,7 @@ dimApp.controller('WidgetDimStatisticsController',
             angular.forEach(response.data.matches, function(match, match_id) {
                 matches.push(match);
             });
-
+            
             matches = $filter('orderBy')(matches, "date", false);
 
             angular.forEach(matches, function(match, key) {
@@ -216,7 +218,7 @@ dimApp.controller('WidgetDimStatisticsController',
                         group: [match]
                     };
                 }
-                console.log("scope",$scope.matches);
+                //console.log("scope",$scope.matches);
             });
 
             $(".widget-dim-content .loadlayer").hide(0);

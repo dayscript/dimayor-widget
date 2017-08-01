@@ -49,7 +49,7 @@
                                 <tr>
                                     <th class="text-center" title="Posición">Pos</th>
                                     <th></th>
-                                    <th class="text-center">Equipo</th>
+                                    <th class="text-center" width="25%">Equipo</th>
                                     <th class="text-center" title="Puntos Totales">PT</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
                                     <th class="text-center" title="Partidos Ganados">PG</th>
@@ -91,7 +91,7 @@
                         <select
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
-                        ng-options="round as round.name for round in rounds">
+                        ng-options="round as round.name for round in rounds | orderBy:'id_round'">
                         </select>
                     </div>
                     <div class="medium-2 columns hide-for-small-only firma">
@@ -193,7 +193,7 @@
                                 </div>
                                 <div class="small-6 medium-2 large-2 columns text-center big">
 
-                                    <a href="#"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                                    <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
                                 </div>
                                 <div class="small-3 medium-5 large-5 columns text-left">
                                     <div class="row">
