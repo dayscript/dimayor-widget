@@ -133,14 +133,14 @@
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
                                            <!--Partido sin jugar-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="PREMATCH | POSTPONED"  style="color: #A4A4A4">
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
                                            <!--Partido en juego-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF | SECONDHALF | HALFTIME" style="color: #0dac0d">
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
-                                           <!--Partido en por si acaso-->
+                                           <!--Partido default-->
                                            <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
                                                <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
@@ -191,9 +191,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="small-6 medium-2 large-2 columns text-center big">
+                                <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
 
-                                    <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                                    <!--Partido en juego-->
+                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                                    <!--Partido default-->
+                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+
                                 </div>
                                 <div class="small-3 medium-5 large-5 columns text-left">
                                     <div class="row">
