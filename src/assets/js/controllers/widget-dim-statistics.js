@@ -184,7 +184,7 @@ dimApp.controller('WidgetDimStatisticsController',
             angular.forEach(response.data.matches, function(match, match_id) {
                 matches.push(match);
             });
-            
+
             matches = $filter('orderBy')(matches, "date", false);
 
             angular.forEach(matches, function(match, key) {
