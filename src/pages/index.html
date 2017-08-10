@@ -240,7 +240,7 @@
                                     <th class="text-center" title="Posición">Pos</th>
                                     <th></th>
                                     <th class="text-center">Jugador</th>
-                                    <th class="text-center" title="Posición en la Cancha">Posición</th>
+                                    <th class="text-center" title="Posición en la Cancha" ng-if="tournament.id == 589">Posición</th>
                                     <th class="text-center" title="Total de Goles">TG</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
                                     <th class="text-center" title="Goles">GJ</th>
@@ -256,7 +256,7 @@
                                         <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{player.team_id}}"/>
                                     </td>
                                     <td class="text-left ">\{{ player.name }}</td>
-                                    <td class="text-center">\{{ player.position }}</td>
+                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.position }}</td>
                                     <td class="text-center">\{{ player.goals }}</td>
                                     <td class="text-center">\{{ player.games_played }}</td>
                                     <td class="text-center">\{{ player.goals_openplay }}</td>
