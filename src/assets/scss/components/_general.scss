@@ -1,379 +1,387 @@
-body{
-    font-family: $font-main;
-    color:$white;
-    font-size: 0.7rem;
-    @include breakpoint('medium') {
-        font-size: 0.8rem;
-    }
+body {
+  font-family: $font-main;
+  color: $white;
+  font-size: 0.7rem;
+  @include breakpoint('medium') {
+    font-size: 0.8rem;
+  }
 }
 
-table{
-    border-collapse: collapse;
-    th,tr,td{
-        border:0;
-        &.logo{
-            padding:0;
-        }
+table {
+  border-collapse: collapse;
+  th, tr, td {
+    border: 0;
+    &.logo {
+      padding: 0;
     }
-    thead{
-        background-color: $dark-gray;
-        color: $white;   
-    }
+  }
+  thead {
+    background-color: $dark-gray;
+    color: $white;
+  }
 }
 
-select{
-    font-family: $font-second;
-    font-size: 0.9rem;
-    option{
-        color: $black;    
-    }
+select {
+  font-family: $font-second;
+  font-size: 0.9rem;
+  option {
+    color: $black;
+  }
 }
 
-.text-center-small{
-    text-align: center;
-    @include breakpoint('medium') {
-        text-align: inherit;        
-    }
-}
-.text-inline{
-    display:block;
-    @include breakpoint('medium') {
-        display:inline-block;
-    }
+.text-center-small {
+  text-align: center;
+  @include breakpoint('medium') {
+    text-align: inherit;
+  }
 }
 
-.widget-dim-tabs{
-    background-color: $main-color;
-
-    .clear-both{
-        content: " ";
-        display: block; 
-        height: 0; 
-        clear: both;
-        padding:0;
-    }
-
-    ul{
-        font-size:13px;
-        margin:0;
-        text-transform:uppercase;
-        height: auto;
-        display:block;
-        width:100%;
-
-        @include breakpoint('medium') {
-            font-size:16px;
-        }
-
-        li{
-            list-style:none;
-            position: relative;
-            float:left;
-            padding:20px 8px;
-            font-size: 0.8em;
-            min-height: 60px;
-            @include breakpoint('medium'){
-                padding:5px 10px;
-                font-size: 1em;
-                min-height: inherit;
-            }
-            cursor:pointer;
-            text-align:center;
-
-            &.tournament-589.active{
-                background-color: #f7c634;
-            }
-
-            &.tournament-664.active{
-                background-color: #0064fa;
-            }
-
-            &.tournament-625.active{
-                background-color: #eb0e66;
-            }
-
-            &.tournament-747.active{
-                background-color: #f7c634;
-            }
-            &.tournament-847.active{
-                background-color: #5b13be;
-            }
-
-            @include breakpoint('medium') {
-                padding:10px 15px;
-            }
-
-            &.tabs-4{
-                width:25%;
-            }
-            &.tabs-3{
-                width:33.3334%;
-            }
-            &.tabs-2{
-                width:50%;
-            }
-            &.tabs-5{
-                width:20%;
-            }
-            &.tabs-6{
-                width:16.6667%;
-            }
-            &.tabs-6{
-                width:14.2857%;
-            }
-        } 
-        
-        &.submenu{
-            display:inline-block;
-            font-size:13px;
-            
-            li{
-                span{
-                    &.active:after{
-                        width: 0; 
-                        height: 0;
-                        position: absolute;
-                        left: 0;
-                        right: 0;
-                        content: '';
-                        margin:0 auto;
-                        bottom: -5px;
-                        border-left: 15px solid transparent;
-                        border-right: 15px solid transparent;
-                        //border-bottom: 5px solid $main-color;
-                        border-bottom: 15px solid $main-color;
-                    }
-                }
-            }
-
-            &.tournament-589{
-                background-color: #f7c634;        
-            }
-
-            &.tournament-664{
-                background-color: #0064fa;
-            }
-
-            &.tournament-625{
-                background-color: #eb0e66;
-            }
-
-            &.tournament-747{
-                background-color: #f7c634;
-            }
-
-            &.tournament-847{
-                background-color: #5b13be;
-            }
-        } 
-    }
+.text-inline {
+  display: block;
+  @include breakpoint('medium') {
+    display: inline-block;
+  }
 }
 
-.widget-dim-content{
-    margin-bottom: 10px;
-    padding:10px;
-    background-color: $main-color;
+.widget-dim-tabs {
+  background-color: $main-color;
+
+  .clear-both {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    padding: 0;
+  }
+
+  ul {
+    font-size: 13px;
+    margin: 0;
     text-transform: uppercase;
+    height: auto;
+    display: block;
+    width: 100%;
 
-
-    .blue{
-        color: $blue;
+    @include breakpoint('medium') {
+      font-size: 16px;
     }
 
-    .schedules-titles{
-        background-color: $dark-gray;
-        padding: 10px 0;
-    }
-
-    .schedules-content{
-        background-color: $light-gray;
-        color: #222;
-        border-bottom: 1px solid #cecece;
-        .match-row{
-            padding-top: 8px;        
-            padding-bottom: 8px;
-            strong{
-                font-weight: normal;
-                display:inline-block;
-                color:$blue;
-                margin-right: 8px;
-                @include breakpoint('large') {
-                    display: none;
-                }
-            }
-
-            &.movil{
-                text-align: right;
-                @include breakpoint('large'){
-                    text-align: left;
-                }
-            }
-            &.movil-small{
-                text-align: center;
-                margin-top: -14px;
-                @include breakpoint('medium'){
-                    text-align: left;
-                    margin-top: 0px;
-                }
-                &.izq{
-                    text-align: center;
-                    @include breakpoint('medium'){
-                        text-align: right;
-                    }
-                }
-            }
-        }
-
-        .match-detail{
-            font-family: $font-second;
-            background-color: $main-color;
-            color: $white;
-            padding:10px 0;
-            display:none;
-            .big{
-                font-family: $font-main;
-                font-size:2.6rem;
-                letter-spacing: -3px;
-                margin-top: -12px;
-            }
-        }
-        &:hover{
-            background-color: #e0e0e1;
-        }
-    }
-
-    .schedules{
-        font-size:0.72rem;
-        .marcador{
-            font-size: 0.74rem;
-            letter-spacing: -1px;
-        }
-
-
-        .expand{
-            border-radius: 50%;
-            border: 3px solid $dark-gray;
-            color: $dark-gray;
-            float:right;
-            display:none;
-            width:24px;
-            height:24px;
-            right:0;
-            font-size:23px;
-            line-height: 13px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: -22px;
-            @include breakpoint(large){
-                margin-top: 0px;
-            }
-            @include breakpoint(medium){
-                display:inline-block;
-            }
-
-        }
-        .key-events{
-            font-family: $font-main;
-            font-size:0.75rem;
-            text-transform: initial;
-            
-            span{
-                span{
-                    color:$blue;
-                }
-            }
-
-            .event-groups{
-                position:relative;
-                padding-right: 20px;
-
-                .event-img{
-                    width: 15px;
-                    height: 15px;
-                    position:absolute;
-                    top: 0;
-                    bottom: 0;
-                    right: 0;
-                    margin: auto 0;
-
-                    &.yellow-card{
-                        background:url('../img/yellow-card.png');
-                        background-repeat: no-repeat;
-                        background-position: 50%;
-                    }
-                    &.red-card{
-                        background:url('../img/red-card.png');
-                        background-repeat: no-repeat;
-                        background-position: 50%;
-                    }
-                    &.goals{
-                        background:url('../img/icon-gol.png');
-                        background-repeat: no-repeat;
-                        background-position: 50%;
-                    }
-                }
-
-                &.invert{
-                    padding-right: 0;
-                    padding-left: 20px;
-                    .event-img{
-                        right:initial;
-                        left:0;
-                    }
-                }
-            }
-        }
-
-    }
-
-    .positions,.scorers{
-        color: #222;
-        font-size:0.7rem;
-    }
-
-    .scorers{
-        overflow-x:scroll;
-        @include breakpoint('medium') {
-            overflow-x:visible;
-        }
-    }
-
-    .loadlayer{
-        width:100%;
-        height:100%;
-        position:absolute;
-        z-index: 2;
-        background-color: $black;
-        opacity: 0.7;
-        top:0;
-        left: 0;
-        display:none;
-        img{
-            margin-top: 25%;
-            margin-left: 49%;
-        }
-    }
-}
-.equipos{
-    font-size: 0.5rem;
-    @include breakpoint(medium){
-        font-size: 0.7rem;
-    }
-}
-
-.detalle{
-    font-size: 0.5rem;
-    @include breakpoint(large){
+    li {
+      list-style: none;
+      position: relative;
+      float: left;
+      padding: 20px 8px;
+      font-size: 0.8em;
+      min-height: 60px;
+      @include breakpoint('medium') {
+        padding: 5px 10px;
         font-size: 1em;
+        min-height: inherit;
+      }
+      cursor: pointer;
+      text-align: center;
+
+      &.tournament-589.active {
+        background-color: #f7c634;
+      }
+
+      &.tournament-664.active {
+        background-color: #0064fa;
+      }
+
+      &.tournament-625.active {
+        background-color: #eb0e66;
+      }
+
+      &.tournament-747.active {
+        background-color: #f7c634;
+      }
+      &.tournament-847.active {
+        background-color: #5b13be;
+      }
+
+      @include breakpoint('medium') {
+        padding: 10px 15px;
+      }
+
+      &.tabs-4 {
+        width: 25%;
+      }
+      &.tabs-3 {
+        width: 33.3334%;
+      }
+      &.tabs-2 {
+        width: 50%;
+      }
+      &.tabs-5 {
+        width: 20%;
+      }
+      &.tabs-6 {
+        width: 16.6667%;
+      }
+      &.tabs-6 {
+        width: 14.2857%;
+      }
     }
+
+    &.submenu {
+      display: inline-block;
+      font-size: 13px;
+
+      li {
+        span {
+          &.active:after {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            content: '';
+            margin: 0 auto;
+            bottom: -5px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            //border-bottom: 5px solid $main-color;
+            border-bottom: 15px solid $main-color;
+          }
+        }
+      }
+
+      &.tournament-589 {
+        background-color: #f7c634;
+      }
+
+      &.tournament-664 {
+        background-color: #0064fa;
+      }
+
+      &.tournament-625 {
+        background-color: #eb0e66;
+      }
+
+      &.tournament-747 {
+        background-color: #f7c634;
+      }
+
+      &.tournament-847 {
+        background-color: #5b13be;
+      }
+    }
+  }
 }
-.firma{
-    font-size: 0.8em;
-    float: right;
-    margin-bottom: 8px;
-    .opta{
-        float: right;
-        padding-top: 8px;
-        display: block;
+
+.widget-dim-content {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: $main-color;
+  text-transform: uppercase;
+
+  .blue {
+    color: $blue;
+  }
+
+  .schedules-titles {
+    background-color: $dark-gray;
+    padding: 10px 0;
+  }
+
+  .schedules-content {
+    background-color: $light-gray;
+    color: #222;
+    border-bottom: 1px solid #cecece;
+    .match-row {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      strong {
+        font-weight: normal;
+        display: inline-block;
+        color: $blue;
+        margin-right: 8px;
+        @include breakpoint('large') {
+          display: none;
+        }
+      }
+
+      &.movil {
+        text-align: right;
+        @include breakpoint('large') {
+          text-align: left;
+        }
+      }
+      &.movil-small {
+        text-align: center;
+        margin-top: -14px;
+        @include breakpoint('medium') {
+          text-align: left;
+          margin-top: 0px;
+        }
+        &.izq {
+          text-align: center;
+          @include breakpoint('medium') {
+            text-align: right;
+          }
+        }
+      }
     }
+
+    .match-detail {
+      font-family: $font-second;
+      background-color: $main-color;
+      color: $white;
+      padding: 10px 0;
+      display: none;
+      .big {
+        font-family: $font-main;
+        font-size: 2.6rem;
+        letter-spacing: -3px;
+        margin-top: -12px;
+      }
+    }
+    &:hover {
+      background-color: #e0e0e1;
+    }
+  }
+
+  .schedules {
+    font-size: 0.72rem;
+    .marcador {
+      font-size: 0.74rem;
+      letter-spacing: -1px;
+    }
+
+    .expand {
+      border-radius: 50%;
+      border: 3px solid $dark-gray;
+      color: $dark-gray;
+      float: right;
+      display: none;
+      width: 24px;
+      height: 24px;
+      right: 0;
+      font-size: 23px;
+      line-height: 13px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: -22px;
+      @include breakpoint(large) {
+        margin-top: 0px;
+      }
+      @include breakpoint(medium) {
+        display: inline-block;
+      }
+
+    }
+    .key-events {
+      font-family: $font-main;
+      font-size: 0.75rem;
+      text-transform: initial;
+
+      span {
+        span {
+          color: $blue;
+        }
+      }
+
+      .event-groups {
+        position: relative;
+        padding-right: 20px;
+
+        .event-img {
+          width: 15px;
+          height: 15px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          margin: auto 0;
+
+          &.yellow-card {
+            background: url('../img/yellow-card.png');
+            background-repeat: no-repeat;
+            background-position: 50%;
+          }
+          &.red-card {
+            background: url('../img/red-card.png');
+            background-repeat: no-repeat;
+            background-position: 50%;
+          }
+          &.goals {
+            background: url('../img/icon-gol.png');
+            background-repeat: no-repeat;
+            background-position: 50%;
+          }
+        }
+
+        &.invert {
+          padding-right: 0;
+          padding-left: 20px;
+          .event-img {
+            right: initial;
+            left: 0;
+          }
+        }
+      }
+    }
+
+  }
+
+  .positions, .scorers {
+    color: #222;
+    font-size: 0.7rem;
+  }
+
+  .scorers {
+    overflow-x: scroll;
+    @include breakpoint('medium') {
+      overflow-x: visible;
+    }
+  }
+
+  .loadlayer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    background-color: $black;
+    opacity: 0.7;
+    top: 0;
+    left: 0;
+    display: none;
+    img {
+      margin-top: 25%;
+      margin-left: 49%;
+    }
+  }
+}
+
+.equipos {
+  font-size: 0.5rem;
+  @include breakpoint(medium) {
+    font-size: 0.7rem;
+  }
+}
+
+.detalle {
+  font-size: 0.5rem;
+  @include breakpoint(large) {
+    font-size: 1em;
+  }
+}
+
+.firma {
+  font-size: 0.8em;
+  float: right;
+  margin-bottom: 8px;
+  .opta {
+    float: right;
+    padding-top: 8px;
+    display: block;
+  }
+}
+
+.descenso {
+  font-size: 0.8em;
+  td {
+    padding: 0.8em 0em!important;
+  }
 }

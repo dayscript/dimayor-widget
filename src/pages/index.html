@@ -272,7 +272,7 @@
             <div ng-switch-when="decline">
                 <div class="row scorers collapse">
                     <div class="small-12 columns">
-                        <table class="table-scroll">
+                        <table class="descenso small-12 columns">
                             <thead>
                               <th rowspan="2"></th>
                               <th rowspan="2"></th>
@@ -303,9 +303,12 @@
                                 <tr ng-repeat="team in decline">
                                     <td class="text-center">\{{team.pos}}</td>
 
-                                    <td class="equipo">
+                                    <td class="equipo hide-for-small-only">
                                       <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="" class="hide-for-small-only">
                                      \{{team.name}}
+                                    </td>
+                                    <td class="equipo show-for-small-only">
+                                        \{{team.name | limitTo: 3}}
                                     </td>
                                     <td class="text-center">\{{team['2015_pj']}}</td>
                                     <td class="text-center">\{{team['2015_pt']}}</td>
