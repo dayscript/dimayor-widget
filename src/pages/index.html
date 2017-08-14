@@ -53,13 +53,13 @@
                                     <th class="text-center" title="Puntos Totales">PT</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
                                     <th class="text-center" title="Partidos Ganados">PG</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Goles a Favor">GF</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Diferencia de Gol">DG</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Partidos Empatados">PE</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Partidos Perdidos">PP</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra">GC</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles a Favor como Visitante">GFV</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra como Visitante">GCV</th>
+                                    <th class="text-center" title="Goles a Favor">GF</th>
+                                    <th class="text-center" title="Diferencia de Gol">DG</th>
+                                    <th class="text-center" title="Partidos Empatados">PE</th>
+                                    <th class="text-center" title="Partidos Perdidos">PP</th>
+                                    <th class="text-center" title="Goles en Contra">GC</th>
+                                    <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
+                                    <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,13 +72,13 @@
                                     <td class="text-center">\{{team.pt}}</td>
                                     <td class="text-center">\{{team.pj}}</td>
                                     <td class="text-center">\{{team.pg}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.gf}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.gd}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.pe}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.pp}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gc}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gfv}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.gcv}}</td>
+                                    <td class="text-center">\{{team.gf}}</td>
+                                    <td class="text-center">\{{team.gd}}</td>
+                                    <td class="text-center">\{{team.pe}}</td>
+                                    <td class="text-center">\{{team.pp}}</td>
+                                    <td class="text-center">\{{team.gc}}</td>
+                                    <td class="text-center">\{{team.gfv}}</td>
+                                    <td class="text-center">\{{team.gcv}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -234,7 +234,7 @@
             <div ng-switch-when="scorers">
                 <div class="row scorers collapse">
                     <div class="small-12 columns">
-                        <table class="table-scroll">
+                        <table class="">
                             <thead>
                                 <tr>
                                     <th class="text-center" title="Posición">Pos</th>
@@ -352,11 +352,11 @@
                                     <th class="text-center">Equipo</th>
                                     <th class="text-center" title="Puntos Totales">PT</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Goles a Favor">GF</th>
-                                    <th class="text-center hide-for-small-only hide-for-medium-only" title="Diferencia de Gol">DG</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra">GC</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles a Favor como Visitante">GFV</th>
-                                    <th class="hide-for-small-only hide-for-medium-only text-center" title="Goles en Contra como Visitante">GCV</th>
+                                    <th class="text-center" title="Goles a Favor">GF</th>
+                                    <th class="text-center" title="Diferencia de Gol">DG</th>
+                                    <th class="text-center" title="Goles en Contra">GC</th>
+                                    <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
+                                    <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -368,11 +368,11 @@
                                     <td class="text-left">\{{team.data.name}}</td>
                                     <td class="text-center">\{{team.data.pt}}</td>
                                     <td class="text-center">\{{team.data.pj}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.data.gf}}</td>
-                                    <td class="text-center hide-for-small-only hide-for-medium-only">\{{team.data.gd}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gc}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gfv}}</td>
-                                    <td class="hide-for-small-only hide-for-medium-only text-center">\{{team.data.gcv}}</td>
+                                    <td class="text-center">\{{team.data.gf}}</td>
+                                    <td class="text-center">\{{team.data.gd}}</td>
+                                    <td class="text-center">\{{team.data.gc}}</td>
+                                    <td class="text-center">\{{team.data.gfv}}</td>
+                                    <td class="text-center">\{{team.data.gcv}}</td>
                                 </tr>
                             </tbody>
                         </table>
