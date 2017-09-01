@@ -1,6 +1,6 @@
 dimApp.controller('WidgetDimStatisticsController',
-    ['$scope', '$interval', '$filter', '$http', 'CommonFunctions',
-    function ($scope, $interval, $filter, $http, CommonFunctions) {
+    ['$scope', '$interval', '$filter', '$http', 'CommonFunctions', 'MatchsTournamentWinsports',
+    function ($scope, $interval, $filter, $http, CommonFunctions, MatchsTournamentWinsports) {
 
     $scope.events = {};
 
@@ -172,11 +172,47 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getSchedulesMatches = function(id, season, round){
         $(".widget-dim-content .loadlayer").show(0);
+        /**/
+        if(id=="589"){
+            $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){ 
+                $scope.matches_win = {};
+                var matches = [];
+
+                angular.forEach(response.data.matches, function(match, match_id) {
+                    matches.push(match);
+                });
+
+                matches = $filter('orderBy')(matches, "date", false);
+
+                MatchsTournamentWinsports.async(id+'-'+season).then(function (winsport_matches) {
+                    angular.forEach(matches, function(match, key) {
+                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
+                            $scope.matches_win[key] = {
+                                id: match.id,
+                                chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src
+                            };
+                    });
+                }, function(response){
+                    angular.forEach(matches, function(match, key) {
+                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
+                            $scope.matches_win[key] = {
+                                id: match.id,
+                                chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src
+                            };
+                    });
+                }); 
+            }); 
+        }
+        /**/
         $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
             headers: {
                 'Cache-Control' : 'no-cache'
             }
-        }).then(function(response){
+        }).then(function(response){ 
 
             $scope.matches = {};
             var matches = [];
