@@ -176,7 +176,7 @@ dimApp.controller('WidgetDimStatisticsController',
             headers: {
                 'Cache-Control' : 'no-cache'
             }
-        }).then(function(response){
+        }).then(function(response){ 
 
             $scope.matches = {};
             var matches = [];
