@@ -243,10 +243,10 @@
                                     <th class="text-center" title="Posición en la Cancha" ng-if="tournament.id == 589">Posición</th>
                                     <th class="text-center" title="Total de Goles">TG</th>
                                     <th class="text-center" title="Partidos Jugados">PJ</th>
-                                    <th class="text-center" title="Goles">GJ</th>
-                                    <th class="text-center" title="Goles de Cabeza">GC</th>
-                                    <th class="text-center" title="Goles de Tiro Libre">GT</th>
-                                    <th class="text-center" title="Goles de Tiro Penal">GP</th>
+                                    <th class="text-center" title="Goles" ng-if="tournament.id == 589">GJ</th>
+                                    <th class="text-center" title="Goles de Cabeza" ng-if="tournament.id == 589">GC</th>
+                                    <th class="text-center" title="Goles de Tiro Libre" ng-if="tournament.id == 589">GT</th>
+                                    <th class="text-center" title="Goles de Tiro Penal" ng-if="tournament.id == 589">GP</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -259,10 +259,10 @@
                                     <td class="text-center" ng-if="tournament.id == 589">\{{ player.position }}</td>
                                     <td class="text-center">\{{ player.goals }}</td>
                                     <td class="text-center">\{{ player.games_played }}</td>
-                                    <td class="text-center">\{{ player.goals_openplay }}</td>
-                                    <td class="text-center">\{{ player.goals_head }}</td>
-                                    <td class="text-center">\{{ player.goals_freekick }}</td>
-                                    <td class="text-center">\{{ player.goals_penal }}</td>
+                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_openplay }}</td>
+                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_head }}</td>
+                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_freekick }}</td>
+                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_penal }}</td>
                                 </tr>
                             </tbody>
                         </table>

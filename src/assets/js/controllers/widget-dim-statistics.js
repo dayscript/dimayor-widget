@@ -197,7 +197,7 @@ dimApp.controller('WidgetDimStatisticsController',
                 if(match.period != 'FULLTIME' && actual > fin) {
                     match.period = "FULLTIME";
                 }
-                
+
                 var this_date = match.date.split(' ')[0];
                 var new_date = this_date;
                 var new_hour = match.date.split(' ')[1];
@@ -280,6 +280,7 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
+            console.log('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json');
             $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
 
