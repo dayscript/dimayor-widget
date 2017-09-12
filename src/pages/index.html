@@ -126,7 +126,7 @@
                                             </div>
                                             <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
                                         </div>
-                                        <div class="small-2 columns text-center marcador" ng-switch='match.period'>
+                                        <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
 
                                            <!--Partido terminado-->
                                            <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">

@@ -29,7 +29,7 @@ dimApp.service('CommonFunctions', function () {
                 return 'Delantero';
                 break;
             case 'Substitute':
-                return 'Suplente';
+                return 'Delantero';
                 break;
             default:
                 return string;
