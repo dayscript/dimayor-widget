@@ -218,7 +218,7 @@ dimApp.controller('WidgetDimStatisticsController',
                         group: [match]
                     };
                 }
-                //console.log("scope",$scope.matches);
+                console.log("scope",$scope.matches);
             });
 
             $(".widget-dim-content .loadlayer").hide(0);
