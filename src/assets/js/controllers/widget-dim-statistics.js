@@ -10,17 +10,173 @@ dimApp.controller('WidgetDimStatisticsController',
         }
     }).then(function(response){
         $scope.tabs = response.data;
+        $scope.seasons = response.data[0].seasons;
         $scope.getTournament(response.data[0]);
     });
 
     $scope.getTournament = function(tournament){
         $(".widget-dim-content .loadlayer").show(0);
         $scope.tournament = tournament;
+        $scope.seasons = tournament.seasons;
         $scope.active_tournament_tabs = tournament.tabs;
         $scope.getData(tournament.id, tournament.season, tournament.tabs[1]);
     }
 
     $scope.getData = function(id, season, service){
+        $(".widget-dim-content .loadlayer").show(0);
+        $scope.active_tournament_tab = service;
+        $scope.tournament.id = id;
+        $scope.tournament.season = season;
+
+        if(service.id == "reclassification"){
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/reclassification/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){
+
+                $scope.reclassification = [];
+                var equipos = [];
+                var competition = response.data;
+                var i = 0;
+                angular.forEach(competition.teams, function(team, team_id) {
+                    var aux =  [];
+                    aux.id = team.pos;
+                    aux.data = team;
+                    equipos.push(aux);
+                    i++;
+                });
+                $scope.reclassification = equipos;
+                $(".widget-dim-content .loadlayer").hide(0);
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+        }
+
+        if(service.id == "schedules"){
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){
+                /*$scope.trnmnt = id;
+                if(response.data.competition)
+                    console.log(response);{*/
+                    $scope.rounds = [];
+                    $scope.round = null;
+                    var index = 0;
+                    var competition = response.data;
+
+                    angular.forEach(competition.phases, function(phase, phase_id) {
+                        angular.forEach(phase.rounds, function(round, round_id) {
+
+                            $scope.rounds.push({
+                                id: round_id,
+                                name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)+' - '+'Fecha '+round.number,
+                                id_round: round.number
+                            });
+
+                            if(phase.phase.id == competition.competition.active_phase_id && round.id == competition.competition.active_round_id){
+                                $scope.round = $scope.rounds[index];
+                                $scope.getSchedulesMatches(id, season, $scope.round);
+                            }
+
+                            index++;
+                        });
+                    });
+
+                    if($scope.round == null){
+                        $scope.round = $scope.rounds[index-1];
+                        $scope.getSchedulesMatches(id, season, $scope.round);
+                    }
+                /*}else{*/
+                    $(".widget-dim-content .loadlayer").hide(0);
+                /*}*/
+
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+        }
+
+        if(service.id == "positions"){
+            $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/summary/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){
+                /*$scope.trnmnt = id;
+                if(response.data.competition){*/
+                    var phase_id = response.data.competition.active_phase_id;
+                    $scope.phases = [];
+
+                    angular.forEach(response.data.phases, function(phase, key) {
+                        var temp = {
+                            id: key,
+                            name: CommonFunctions.getPhaseTranslation(phase.phase.type, phase.phase.number)
+                        };
+
+                        $scope.phases.push(temp);
+
+                        if(key == phase_id){
+                            $scope.phase = temp;
+                        }
+                    });
+
+                    $scope.getPositions(id, season, $scope.phase);
+                /*}else{*/
+                    $(".widget-dim-content .loadlayer").hide(0);
+                /*}*/
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+        }
+
+        if(service.id == "scorers"){
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/scorers/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){
+
+                $scope.scorers = [];
+
+                angular.forEach(response.data.scorers, function(player, player_id) {
+                    player.position = CommonFunctions.getPositionTranslation(player.position);
+                    $scope.scorers.push(player);
+                });
+
+                $scope.scorers = $filter('orderBy')($scope.scorers, 'pos', false);
+                $(".widget-dim-content .loadlayer").hide(0);
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+        }
+
+        if(service.id == "decline"){
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/decline/'+id+'/'+season+'/all.json',{
+                headers: {
+                    'Cache-Control' : 'no-cache'
+                }
+            }).then(function(response){
+
+                $scope.decline = [];
+
+                angular.forEach(response.data.teams, function(team, team_id) {
+                    $scope.decline.push(team);
+                });
+
+                $scope.decline = $filter('orderBy')($scope.decline, '-pos', false);
+                $(".widget-dim-content .loadlayer").hide(0);
+            }, function(response){
+                $(".widget-dim-content .loadlayer").hide(0);
+            });
+
+        }
+    };
+
+
+
+    $scope.getSeasons = function(id, season, service){
         $(".widget-dim-content .loadlayer").show(0);
         $scope.active_tournament_tab = service;
 
@@ -218,7 +374,6 @@ dimApp.controller('WidgetDimStatisticsController',
                         group: [match]
                     };
                 }
-                console.log("scope",$scope.matches);
             });
 
             $(".widget-dim-content .loadlayer").hide(0);
@@ -280,7 +435,6 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            console.log('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json');
             $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
                 .then(function(response){
 

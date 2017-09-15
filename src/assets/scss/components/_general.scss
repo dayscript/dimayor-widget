@@ -91,6 +91,10 @@ select {
       cursor: pointer;
       text-align: center;
 
+      &.tournament-371.active {
+        background-color: #f7c634;
+      }
+
       &.tournament-589.active {
         background-color: #f7c634;
       }
@@ -159,6 +163,10 @@ select {
             border-bottom: 15px solid $main-color;
           }
         }
+      }
+
+      &.tournament-371 {
+        background-color: #f7c634;
       }
 
       &.tournament-589 {
@@ -403,4 +411,8 @@ select {
   td {
     padding: 0.8em 0em!important;
   }
+}
+
+.season-select{
+  margin-right: 10px;
 }

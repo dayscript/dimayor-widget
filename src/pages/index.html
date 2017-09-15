@@ -32,7 +32,15 @@
         <div ng-switch="active_tournament_tab.id">
             <div ng-switch-when="positions">
                 <div class="row collapse">
-                    <div class="small-12 large-4 columns">
+                    <div class="small-12 large-4 columns season-select">
+                      <select
+                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                      ng-model="seasonSelect"
+                      ng-init="seasonSelect.pos = seasons[0].pos"
+                      ng-options="season.name for season in seasons track by season.pos ">
+                      </select>
+                    </div>
+                    <div class="small-12 large-4 columns phase-select end">
                         <select
                         ng-change="getPositions(tournament.id, tournament.season, phase)"
                         ng-model="phase"
@@ -86,8 +94,16 @@
                 </div>
             </div>
             <div ng-switch-when="schedules">
-                <div class="row ">
-                    <div class="small-12 medium-10 large-4 columns">
+                <div class="row collapse">
+                    <div class="small-12 large-4 columns season-select">
+                      <select
+                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                      ng-model="seasonSelect"
+                      ng-init="seasonSelect.pos = seasons[0].pos"
+                      ng-options="season.name for season in seasons track by season.pos ">
+                      </select>
+                    </div>
+                    <div class="small-12 medium-10 large-4 columns end">
                         <select
                         ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
                         ng-model="round"
@@ -233,6 +249,14 @@
             </div>
             <div ng-switch-when="scorers">
                 <div class="row scorers collapse">
+                    <div class="small-12 large-4 columns season-select">
+                      <select
+                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                      ng-model="seasonSelect"
+                      ng-init="seasonSelect.pos = seasons[0].pos"
+                      ng-options="season.name for season in seasons track by season.pos ">
+                      </select>
+                    </div>
                     <div class="small-12 columns">
                         <table class="">
                             <thead>
@@ -271,6 +295,14 @@
             </div>
             <div ng-switch-when="decline">
                 <div class="row scorers collapse">
+                    <div class="small-12 large-4 columns season-select">
+                      <select
+                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                      ng-model="seasonSelect"
+                      ng-init="seasonSelect.pos = seasons[0].pos"
+                      ng-options="season.name for season in seasons track by season.pos ">
+                      </select>
+                    </div>
                     <div class="small-12 columns">
                         <table class="descenso small-12 columns">
                             <thead>
@@ -343,6 +375,14 @@
             <!-- -->
             <div ng-switch-when="reclassification">
                 <div class="row positions collapse">
+                    <div class="small-12 large-4 columns season-select">
+                      <select
+                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                      ng-model="seasonSelect"
+                      ng-init="seasonSelect.pos = seasons[0].pos"
+                      ng-options="season.name for season in seasons track by season.pos ">
+                      </select>
+                    </div>
                     <div class="table-scroll small-12 columns">
                         <table>
                             <thead>
