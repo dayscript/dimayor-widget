@@ -364,8 +364,11 @@ dimApp.controller('WidgetDimStatisticsController',
                 }else{
                     match.href = "#";
                 }
-
-                if(this_date in $scope.matches){
+                console.log(match.period);
+                if( match.period == 'Postponed'){
+                  $scope.matches['aplazado'].group.push(match);
+                }
+                else if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
                 }else{
                     $scope.matches[this_date] = {
