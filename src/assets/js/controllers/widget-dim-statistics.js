@@ -350,7 +350,7 @@ dimApp.controller('WidgetDimStatisticsController',
                 var actual = new Date();
                 var inicio = new Date(match.date);
                 var fin = new Date(inicio.setSeconds(7200));
-                if(match.period != 'FULLTIME' && actual > fin) {
+                if(match.period != 'POSTPONED' && match.period != 'FULLTIME' && actual > fin) {
                     match.period = "FULLTIME";
                 }
 
@@ -364,15 +364,18 @@ dimApp.controller('WidgetDimStatisticsController',
                 }else{
                     match.href = "#";
                 }
-                console.log(match.period);
+                console.log(match);
+
                 if( match.period == 'POSTPONED'){
                   this_date = 'aplazado';
-                  console.log($scope.matches);
-                  $scope.matches['aplazado'] = {
-                      time: '',
-                      group: [match]
-                  };
-
+                  if(this_date in $scope.matches){
+                      $scope.matches[this_date].group.push(match);
+                  }else{
+                    $scope.matches['aplazado'] = {
+                        time: '',
+                        group: [match]
+                    };
+                  }
                 }
                 else if(this_date in $scope.matches){
                     $scope.matches[this_date].group.push(match);
