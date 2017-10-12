@@ -350,9 +350,10 @@ dimApp.controller('WidgetDimStatisticsController',
                 var actual = new Date();
                 var inicio = new Date(match.date);
                 var fin = new Date(inicio.setSeconds(7200));
-                if(match.period != 'POSTPONED' && match.period != 'FULLTIME' && actual > fin) {
+                if(match.period != 'POSTPONED' && match.perdio != 'TBC' && match.period != 'FULLTIME' && actual > fin) {
                     match.period = "FULLTIME";
                 }
+
 
                 var this_date = match.date.split(' ')[0];
                 var new_date = this_date;
@@ -364,7 +365,7 @@ dimApp.controller('WidgetDimStatisticsController',
                 }else{
                     match.href = "#";
                 }
-                console.log(match);
+
 
                 if( match.period == 'POSTPONED'){
                   this_date = 'aplazado';
@@ -372,6 +373,17 @@ dimApp.controller('WidgetDimStatisticsController',
                       $scope.matches[this_date].group.push(match);
                   }else{
                     $scope.matches['aplazado'] = {
+                        time: '',
+                        group: [match]
+                    };
+                  }
+                }
+                else if( match.period == 'TBC'){
+                  this_date = 'por_definir';
+                  if(this_date in $scope.matches){
+                      $scope.matches[this_date].group.push(match);
+                  }else{
+                    $scope.matches['por_definir'] = {
                         time: '',
                         group: [match]
                     };
@@ -386,6 +398,7 @@ dimApp.controller('WidgetDimStatisticsController',
                         group: [match]
                     };
                 }
+                /*console.log(match);*/
             });
 
             $(".widget-dim-content .loadlayer").hide(0);
