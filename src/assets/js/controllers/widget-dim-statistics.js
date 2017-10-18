@@ -328,56 +328,56 @@ dimApp.controller('WidgetDimStatisticsController',
 
     $scope.getSchedulesMatches = function(id, season, round){
         $(".widget-dim-content .loadlayer").show(0);
-        /**/       
-         if(id=="371" || id=="589"){        
-             $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{        
-                 headers: {        
-                     'Cache-Control' : 'no-cache'      
-                 }     
-             }).then(function(response){       
+        /**/
+         if(id=="371" || id=="589"){
+             $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
+                 headers: {
+                     'Cache-Control' : 'no-cache'
+                 }
+             }).then(function(response){
                  $scope.matches_win = {}; var matches = []; var chn_url = '';
 
-                 angular.forEach(response.data.matches, function(match, match_id) {        
-                     matches.push(match);      
-                 });       
-       
-                 matches = $filter('orderBy')(matches, "date", false);     
-       
-                 MatchsTournamentWinsports.async(id+'-'+season).then(function (winsport_matches) {     
-                     angular.forEach(matches, function(match, key) {       
-                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true); 
+                 angular.forEach(response.data.matches, function(match, match_id) {
+                     matches.push(match);
+                 });
+
+                 matches = $filter('orderBy')(matches, "date", false);
+
+                 MatchsTournamentWinsports.async(id+'-'+season).then(function (winsport_matches) {
+                     angular.forEach(matches, function(match, key) {
+                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
+                        if (match_filter[0].chn_image !== null) {
+                            if (match_filter[0].chn_image.src.indexOf('canal-rcn') !== -1) {
+                               chn_url = 'http://www.winsports.co/';
+                            }else{
+                                chn_url = 'http://www.winsports.co/';
+                            }
+                            $scope.matches_win[key] = {
+                                id: match.id,
+                                chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src,
+                                path: chn_url
+                            };
+                        }
+                     });
+                 }, function(response){
+                     angular.forEach(matches, function(match, key) {
+                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
                         if (match_filter[0].chn_image !== null) {
                             if (match_filter[0].chn_image.src.indexOf('canal-rcn') !== -1) {
                                chn_url = 'http://www.canalrcn.com/';
                             }else{
                                 chn_url = 'http://www.winsports.co/';
-                            } 
-                            $scope.matches_win[key] = {       
-                                id: match.id,     
+                            }
+                            $scope.matches_win[key] = {
+                                id: match.id,
                                 chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src,
-                                path: chn_url       
-                            };  
-                        }      
-                     });       
-                 }, function(response){        
-                     angular.forEach(matches, function(match, key) {       
-                        var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);   
-                        if (match_filter[0].chn_image !== null) {
-                            if (match_filter[0].chn_image.src.indexOf('canal-rcn') !== -1) {
-                               chn_url = 'http://www.canalrcn.com/';
-                            }else{
-                                chn_url = 'http://www.winsports.co/';
-                            } 
-                            $scope.matches_win[key] = {       
-                                id: match.id,     
-                                chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src,
-                                path: chn_url       
-                            };  
-                        }         
-                     });       
-                 });       
-             });       
-         }     
+                                path: chn_url
+                            };
+                        }
+                     });
+                 });
+             });
+         }
          /**/
         $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
             headers: {
