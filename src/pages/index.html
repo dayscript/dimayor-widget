@@ -177,6 +177,11 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                            <hidden ng-repeat="match_win in matches_win">      
+                                <a href="\{{match_win.path}}" target="_blank">
+                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
+                                </a>     
+                            </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
@@ -305,6 +310,11 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                            <hidden ng-repeat="match_win in matches_win">      
+                                <a href="\{{match_win.path}}" target="_blank">
+                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
+                                </a>     
+                            </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
@@ -432,6 +442,11 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                            <hidden ng-repeat="match_win in matches_win">      
+                                <a href="\{{match_win.path}}" target="_blank">
+                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
+                                </a>     
+                            </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
