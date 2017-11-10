@@ -1,703 +1,717 @@
 <div ng-controller="WidgetDimStatisticsController">
-    <div class="widget-dim-tabs">
-        <ul>
-            <li
+   <div class="widget-dim-tabs">
+      <ul>
+         <li
             class="\{{ 'tournament-'+tab.id+' tabs-'+tabs.length}}"
             ng-repeat="tab in tabs | orderBy:'ord'"
             ng-click="getTournament(tab)"
             ng-class="tab == tournament ? 'active' : ''">
-                \{{ tab.title }}
-            </li>
-        </ul>
-        <div class="clear-both"></div>
-        <ul class="submenu hide-for-small-only  \{{ 'tournament-'+tournament.id }}">
-            <li
+            \{{ tab.title }}
+         </li>
+      </ul>
+      <div class="clear-both"></div>
+      <ul class="submenu hide-for-small-only  \{{ 'tournament-'+tournament.id }}">
+         <li
             ng-repeat="tab in active_tournament_tabs"
             ng-click="getData(tournament.id, tournament.season, tab)"
             ng-class="'tabs-'+active_tournament_tabs.length">
-                <span ng-class="tab == active_tournament_tab ? 'active' : ''">
-                    \{{ tab.name }}
-                </span>
-            </li>
-        </ul>
-        <div class="clear-both"></div>
-    </div>
-    <div class="widget-dim-content">
-        <select
-        class="show-for-small-only"
-        ng-model="active_tournament_tab"
-        ng-change="getData(tournament.id, tournament.season, active_tournament_tab)"
-        ng-options="tab as tab.name for tab in active_tournament_tabs">
-        </select>
-        <div ng-switch="active_tournament_tab.id">
-            <div ng-switch-when="positions">
-                <div class="row collapse">
-                    <div class="small-12 large-4 columns season-select">
-                      <select
-                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                      ng-model="seasonSelect"
-                      ng-init="seasonSelect.pos = seasons[0].pos"
-                      ng-options="season.name for season in seasons track by season.pos ">
-                      </select>
-                    </div>
-                    <div class="small-12 large-4 columns phase-select end">
-                        <select
-                        ng-change="getPositions(tournament.id, tournament.season, phase)"
-                        ng-model="phase"
-                        ng-options="phase as phase.name for phase in phases">
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row positions collapse">
-                    <div class="small-12 columns">
-                        <table
-                        ng-repeat="stage in stages track by stage.id">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" title="Posición">Pos</th>
-                                    <th></th>
-                                    <th class="text-center" width="25%">Equipo</th>
-                                    <th class="text-center" title="Puntos Totales">PT</th>
-                                    <th class="text-center" title="Partidos Jugados">PJ</th>
-                                    <th class="text-center" title="Partidos Ganados">PG</th>
-                                    <th class="text-center" title="Goles a Favor">GF</th>
-                                    <th class="text-center" title="Diferencia de Gol">DG</th>
-                                    <th class="text-center" title="Partidos Empatados">PE</th>
-                                    <th class="text-center" title="Partidos Perdidos">PP</th>
-                                    <th class="text-center" title="Goles en Contra">GC</th>
-                                    <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
-                                    <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="team in stage.teams">
-                                    <td class="text-center">\{{team.pos}}</td>
-                                    <td class="text-right logo">
-                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
-                                    </td>
-                                    <td class="text-left">\{{team.name}}</td>
-                                    <td class="text-center">\{{team.pt}}</td>
-                                    <td class="text-center">\{{team.pj}}</td>
-                                    <td class="text-center">\{{team.pg}}</td>
-                                    <td class="text-center">\{{team.gf}}</td>
-                                    <td class="text-center">\{{team.gd}}</td>
-                                    <td class="text-center">\{{team.pe}}</td>
-                                    <td class="text-center">\{{team.pp}}</td>
-                                    <td class="text-center">\{{team.gc}}</td>
-                                    <td class="text-center">\{{team.gfv}}</td>
-                                    <td class="text-center">\{{team.gcv}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <span ng-class="tab == active_tournament_tab ? 'active' : ''">
+            \{{ tab.name }}
+            </span>
+         </li>
+      </ul>
+      <div class="clear-both"></div>
+   </div>
+   <div class="widget-dim-content">
+      <select
+         class="show-for-small-only"
+         ng-model="active_tournament_tab"
+         ng-change="getData(tournament.id, tournament.season, active_tournament_tab)"
+         ng-options="tab as tab.name for tab in active_tournament_tabs">
+      </select>
+      <div ng-switch="active_tournament_tab.id">
+         <div ng-switch-when="positions">
+            <div class="row collapse">
+               <div class="small-12 large-4 columns season-select">
+                  <select
+                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                     ng-model="seasonSelect"
+                     ng-init="seasonSelect.pos = seasons[0].pos"
+                     ng-options="season.name for season in seasons track by season.pos ">
+                  </select>
+               </div>
+               <div class="small-12 large-4 columns phase-select end">
+                  <select
+                     ng-change="getPositions(tournament.id, tournament.season, phase)"
+                     ng-model="phase"
+                     ng-options="phase as phase.name for phase in phases">
+                  </select>
+               </div>
             </div>
-            <div ng-switch-when="schedules">
-                <div class="row collapse">
-                    <div class="small-12 large-4 columns season-select">
-                      <select
-                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                      ng-model="seasonSelect"
-                      ng-init="seasonSelect.pos = seasons[0].pos"
-                      ng-options="season.name for season in seasons track by season.pos ">
-                      </select>
-                    </div>
-                    <div class="small-12 medium-10 large-4 columns end">
-                        <select
-                        ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
-                        ng-model="round"
-                        ng-options="round as round.name for round in rounds | orderBy:'id_round'">
-                        </select>
-                    </div>
-                    <div class="medium-2 columns hide-for-small-only firma">
-                        <div class="row">
-                            <div class="medium-12 columns"><img src="assets/img/opta.png" alt="By OPTA" class="opta"></div>
-                            <div class="medium-12 columns text-right firma">Proveedor oficial de estadisticas</div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key != 'aplazado' && key != 'por_definir'">
-                    <div class="row schedules-titles">
-                        <div class="small-12 large-7 columns" >
-                            \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd yyyy' }}
-                        </div>
-                        <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
-                        <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
-                    </div>
-                    <div class="row schedules-content" ng-repeat="match in group.group">
-                        <div class="small-12 large-7 columns match-row">
-                            <div class="row">
-                                <div class="small-1 columns blue">
-                                    \{{match.date}}
-                                </div>
-                                <div class="small-11 columns">
-                                    <div class="row">
-                                        <div class="small-5 columns text-right">
-                                            <div class=" ">
-                                                <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
-                                        </div>
-                                        <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
-
-                                           <!--Partido terminado-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido sin jugar-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido en juego-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido default-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-
-                                        </div>
-                                        <div class="small-5 columns text-left">
-                                            <div class="">
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
-                                                <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
-                        <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
-                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
-                                <a href="\{{match_win.path}}" target="_blank">
-                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
-                            </hidden>
-                        </div>
-                        <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
-                            <div class="row">
-                                <div class="small-3 medium-5 large-5 columns text-right">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns large-push-10">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns large-pull-2 key-events">
-                                            <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img yellow-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img red-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img goals"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
-
-                                    <!--Partido en juego-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-                                    <!--Partido default-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-
-                                </div>
-                                <div class="small-3 medium-5 large-5 columns text-left">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns key-events">
-                                            <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img yellow-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img red-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
-                                                <div class="event-img goals"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key == 'por_definir'">
-                    <div class="row schedules-titles">
-                        <div class="small-12 large-7 columns" >
-                           POR DEFINIR
-                        </div>
-                        <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
-                        <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
-                    </div>
-                    <div class="row schedules-content" ng-repeat="match in group.group">
-                        <div class="small-12 large-7 columns match-row">
-                            <div class="row">
-                                <div class="small-1 columns blue">
-                                    --
-                                </div>
-                                <div class="small-11 columns">
-                                    <div class="row">
-                                        <div class="small-5 columns text-right">
-                                            <div class=" ">
-                                                <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
-                                        </div>
-                                        <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
-
-                                           <!--Partido terminado-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido sin jugar-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido en juego-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido default-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-
-                                        </div>
-                                        <div class="small-5 columns text-left">
-                                            <div class="">
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
-                                                <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
-                        <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
-                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
-                                <a href="\{{match_win.path}}" target="_blank">
-                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
-                            </hidden>
-                        </div>
-                        <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
-                            <div class="row">
-                                <div class="small-3 medium-5 large-5 columns text-right">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns large-push-10">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns large-pull-2 key-events">
-                                            <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img yellow-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img red-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img goals"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
-
-                                    <!--Partido en juego-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-                                    <!--Partido default-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-
-                                </div>
-                                <div class="small-3 medium-5 large-5 columns text-left">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns key-events">
-                                            <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img yellow-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img red-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
-                                                <div class="event-img goals"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key == 'aplazado'">
-                    <div class="row schedules-titles">
-                        <div class="small-12 large-7 columns" >
-                           APLAZADOS
-                        </div>
-                        <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
-                        <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
-                    </div>
-                    <div class="row schedules-content" ng-repeat="match in group.group">
-                        <div class="small-12 large-7 columns match-row">
-                            <div class="row">
-                                <div class="small-1 columns blue">
-                                    --
-                                </div>
-                                <div class="small-11 columns">
-                                    <div class="row">
-                                        <div class="small-5 columns text-right">
-                                            <div class=" ">
-                                                <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
-                                        </div>
-                                        <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
-
-                                           <!--Partido terminado-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido sin jugar-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido en juego-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-                                           <!--Partido default-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
-                                               <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
-                                           </a>
-
-                                        </div>
-                                        <div class="small-5 columns text-left">
-                                            <div class="">
-                                                <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
-                                                <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
-                                            </div>
-                                            <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
-                        <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
-                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
-                                <a href="\{{match_win.path}}" target="_blank">
-                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
-                            </hidden>
-                        </div>
-                        <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
-                            <div class="row">
-                                <div class="small-3 medium-5 large-5 columns text-right">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns large-push-10">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns large-pull-2 key-events">
-                                            <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img yellow-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img red-card"></div>
-                                            </div>
-                                            <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
-                                                <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                                <div class="event-img goals"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
-
-                                    <!--Partido en juego-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-                                    <!--Partido default-->
-                                   <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
-
-                                </div>
-                                <div class="small-3 medium-5 large-5 columns text-left">
-                                    <div class="row">
-                                        <div class="small-12 large-2 columns">
-                                            <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
-                                        </div>
-                                        <div class="small-12 large-10 columns key-events">
-                                            <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img yellow-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
-                                                <div class="event-img red-card"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                            <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
-                                                <div class="event-img goals"></div>
-                                                <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
-                                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
+            <div class="row positions collapse">
+               <div class="small-12 columns">
+                  <table
+                     ng-repeat="stage in stages track by stage.id">
+                     <thead>
+                        <tr>
+                           <th class="text-center" title="Posición">Pos</th>
+                           <th></th>
+                           <th class="text-center" width="25%">Equipo</th>
+                           <th class="text-center" title="Puntos Totales">PT</th>
+                           <th class="text-center" title="Partidos Jugados">PJ</th>
+                           <th class="text-center" title="Partidos Ganados">PG</th>
+                           <th class="text-center" title="Goles a Favor">GF</th>
+                           <th class="text-center" title="Diferencia de Gol">DG</th>
+                           <th class="text-center" title="Partidos Empatados">PE</th>
+                           <th class="text-center" title="Partidos Perdidos">PP</th>
+                           <th class="text-center" title="Goles en Contra">GC</th>
+                           <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
+                           <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="team in stage.teams">
+                           <td class="text-center">\{{team.pos}}</td>
+                           <td class="text-right logo">
+                              <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
+                           </td>
+                           <td class="text-left">\{{team.name}}</td>
+                           <td class="text-center">\{{team.pt}}</td>
+                           <td class="text-center">\{{team.pj}}</td>
+                           <td class="text-center">\{{team.pg}}</td>
+                           <td class="text-center">\{{team.gf}}</td>
+                           <td class="text-center">\{{team.gd}}</td>
+                           <td class="text-center">\{{team.pe}}</td>
+                           <td class="text-center">\{{team.pp}}</td>
+                           <td class="text-center">\{{team.gc}}</td>
+                           <td class="text-center">\{{team.gfv}}</td>
+                           <td class="text-center">\{{team.gcv}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
             </div>
-            <div ng-switch-when="scorers">
-                <div class="row scorers collapse">
-                    <div class="small-12 large-4 columns season-select">
-                      <select
-                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                      ng-model="seasonSelect"
-                      ng-init="seasonSelect.pos = seasons[0].pos"
-                      ng-options="season.name for season in seasons track by season.pos ">
-                      </select>
-                    </div>
-                    <div class="small-12 columns">
-                        <table class="">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" title="Posición">Pos</th>
-                                    <th></th>
-                                    <th class="text-center">Jugador</th>
-                                    <th class="text-center" title="Posición en la Cancha" ng-if="tournament.id == 589">Posición</th>
-                                    <th class="text-center" title="Total de Goles">TG</th>
-                                    <th class="text-center" title="Partidos Jugados">PJ</th>
-                                    <th class="text-center" title="Goles" ng-if="tournament.id == 589">GJ</th>
-                                    <th class="text-center" title="Goles de Cabeza" ng-if="tournament.id == 589">GC</th>
-                                    <th class="text-center" title="Goles de Tiro Libre" ng-if="tournament.id == 589">GT</th>
-                                    <th class="text-center" title="Goles de Tiro Penal" ng-if="tournament.id == 589">GP</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="player in scorers">
-                                    <td>\{{ player.pos }}</td>
-                                    <td class="text-right logo">
-                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{player.team_id}}"/>
-                                    </td>
-                                    <td class="text-left ">\{{ player.name }}</td>
-                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.position }}</td>
-                                    <td class="text-center">\{{ player.goals }}</td>
-                                    <td class="text-center">\{{ player.games_played }}</td>
-                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_openplay }}</td>
-                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_head }}</td>
-                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_freekick }}</td>
-                                    <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_penal }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+         </div>
+         <div ng-switch-when="schedules">
+            <div class="row collapse">
+               <div class="small-12 large-4 columns season-select">
+                  <select
+                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                     ng-model="seasonSelect"
+                     ng-init="seasonSelect.pos = seasons[0].pos"
+                     ng-options="season.name for season in seasons track by season.pos ">
+                  </select>
+               </div>
+               <div class="small-12 medium-10 large-4 columns end">
+                  <select
+                     ng-change="getSchedulesMatches(tournament.id, tournament.season, round)"
+                     ng-model="round"
+                     ng-options="round as round.name for round in rounds | orderBy:'id_round'">
+                  </select>
+               </div>
+               <div class="medium-2 columns hide-for-small-only firma">
+                  <div class="row">
+                     <div class="medium-12 columns"><img src="assets/img/opta.png" alt="By OPTA" class="opta"></div>
+                     <div class="medium-12 columns text-right firma">Proveedor oficial de estadisticas</div>
+                  </div>
+               </div>
             </div>
-            <div ng-switch-when="decline">
-                <div class="row scorers collapse">
-                    <div class="small-12 large-4 columns season-select">
-                      <select
-                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                      ng-model="seasonSelect"
-                      ng-init="seasonSelect.pos = seasons[0].pos"
-                      ng-options="season.name for season in seasons track by season.pos ">
-                      </select>
-                    </div>
-                    <div class="small-12 columns">
-                        <table class="descenso small-12 columns">
-                            <thead>
-                              <th rowspan="2"></th>
-                              <th rowspan="2"></th>
-                              <th class="text-center" colspan="2">2015</th>
-                              <th class="text-center" colspan="2">2016</th>
-                              <th class="text-center" colspan="2">2017</th>
-                              <th class="text-center" colspan="8">Totales</th>
-                            </thead>
-                            <thead>
-                                <th class="text-center">Pos</th>
-                                <th class="text-center">Equipo</th>
-                                <th class="text-center" >PJ</th>
-                                <th class="text-center" >PTS</th>
-                                <th class="text-center" >PJ</th>
-                                <th class="text-center" >PTS</th>
-                                <th class="text-center" >PJ</th>
-                                <th class="text-center" >PTS</th>
-                                <th class="text-center" >PJ</th>
-                                <th class="text-center" >GF</th>
-                                <th class="text-center" >GC</th>
-                                <th class="text-center" >GD</th>
-                                <th class="text-center" >FV</th>
-                                <th class="text-center" >CV</th>
-                                <th class="text-center" >PTS</th>
-                                <th class="text-center" >PROM</th>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="team in decline">
-                                    <td class="text-center">\{{team.pos}}</td>
-
-                                    <td class="equipo hide-for-small-only">
-                                      <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="" class="hide-for-small-only">
-                                     \{{team.name}}
-                                    </td>
-                                    <td class="equipo show-for-small-only">
-                                        \{{team.name | limitTo: 3}}
-                                    </td>
-                                    <td class="text-center">\{{team['2015_pj']}}</td>
-                                    <td class="text-center">\{{team['2015_pt']}}</td>
-                                    <td class="text-center">\{{team['2016_pj']}}</td>
-                                    <td class="text-center">\{{team['2016_pt']}}</td>
-                                    <td class="text-center">\{{team['2017_pj']}}</td>
-                                    <td class="text-center">\{{team['2017_pt']}}</td>
-                                    <td class="text-center">\{{team.pj}}</td>
-                                    <td class="text-center">\{{team.gf}}</td>
-                                    <td class="text-center">\{{team.gc}}</td>
-                                    <td class="text-center">\{{team.gd}}</td>
-                                    <td class="text-center">\{{team.gfv}}</td>
-                                    <td class="text-center">\{{team.gcv}}</td>
-                                    <td class="text-center">\{{team.pt}}</td>
-                                    <td class="text-center">\{{team.prom}}</td>
-
-                                    <!--<td class="text-center">\{{team.2015_pj}}</td>
-                                    <td class="text-center">\{{team.2016_pj}}</td>
-                                    <td class="text-center">\{{team.2016_pt}}</td>
-                                    <td class="text-center">\{{team.2017_pj}}</td>
-                                    <td class="text-center">\{{team.2017_pt}}</td>
-                                    <td class="text-center">\{{team.2015_pj}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gc}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gfv}}</td>
-                                    <td class="hide-for-small-only text-center">\{{team.gcv}}</td>-->
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key != 'aplazado' && key != 'por_definir'">
+               <div class="row schedules-titles">
+                  <div class="small-12 large-6 columns">
+                     \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd yyyy' }}
+                  </div>
+                  <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only text-center">Árbitro</div>
+                  <div class="small-12 large-4 columns hide-for-small-only hide-for-medium-only">Estadio</div>
+               </div>
+               <div class="row schedules-content" ng-repeat="match in group.group">
+                  <div class="small-12 large-6 columns match-row">
+                     <div class="row">
+                        <div class="small-1 columns blue">
+                           \{{match.date}}
+                        </div>
+                        <div class="small-11 columns">
+                           <div class="row">
+                              <div class="small-5 columns text-right">
+                                 <div class=" ">
+                                    <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
+                              </div>
+                              <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
+                                 <!--Partido terminado-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido sin jugar-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido en juego-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido default-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                              </div>
+                              <div class="small-5 columns text-left">
+                                 <div class="">
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
+                                    <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
+                  <!--VER GOLES - LOGOS WIN-->
+                  <!--small-->
+                  <div class="small-12 columns detalle match-row movil-small show-for-small-only">
+                     <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                     <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                  </div>
+                  <div class="small-12 columns text-center show-for-small-only">
+                     <hidden ng-repeat="match_win in matches_win">
+                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>       
+                        <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
+                        <img  ng-src="\{{match_win.chn_image}}"></a>     
+                     </hidden>
+                  </div>
+                  <!--medium-->
+                  <div class="medium-6 columns detalle match-row movil movil-small show-for-medium-only">
+                        <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                        <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                  </div>  
+                  <div class="medium-12 columns text-center show-for-medium-only">
+                     <hidden ng-repeat="match_win in matches_win">
+                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>       
+                        <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
+                        <img  ng-src="\{{match_win.chn_image}}"></a>     
+                     </hidden>
+                  </div> 
+                  <!--large-->
+                  <div class="large-4 columns detalle match-row movil-small hide-for-small-only hide-for-medium-only">
+                   <div class="row">
+                        <div class="large-6 columns text-left">
+                           <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                        </div>
+                        <div class="large-5 columns text-right">
+                           <hidden ng-repeat="match_win in compact_video_win">   
+                              <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>   
+                           </hidden>
+                           <hidden ng-repeat="match_win in matches_win">   
+                              <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
+                              <img  ng-src="\{{match_win.chn_image}}"></a>    
+                           </hidden>
+                        </div>  
+                        <div class="large-1 columns text-right">
+                           <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                        </div>   
+                  </div> 
+                  </div>
+                  <!---->
+                  <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
+                     <div class="row">
+                        <div class="small-3 medium-5 large-5 columns text-right">
+                           <div class="row">
+                              <div class="small-12 large-2 columns large-push-10">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns large-pull-2 key-events">
+                                 <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img yellow-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img red-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img goals"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
+                           <!--Partido en juego-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                           <!--Partido default-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                        </div>
+                        <div class="small-3 medium-5 large-5 columns text-left">
+                           <div class="row">
+                              <div class="small-12 large-2 columns">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns key-events">
+                                 <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img yellow-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img red-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
+                                    <div class="event-img goals"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <!-- -->
-            <div ng-switch-when="reclassification">
-                <div class="row positions collapse">
-                    <div class="small-12 large-4 columns season-select">
-                      <select
-                      ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                      ng-model="seasonSelect"
-                      ng-init="seasonSelect.pos = seasons[0].pos"
-                      ng-options="season.name for season in seasons track by season.pos ">
-                      </select>
-                    </div>
-                    <div class="table-scroll small-12 columns">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="text-center" title="Posición">Pos</th>
-                                    <th></th>
-                                    <th class="text-center">Equipo</th>
-                                    <th class="text-center" title="Puntos Totales">PT</th>
-                                    <th class="text-center" title="Partidos Jugados">PJ</th>
-                                    <th class="text-center" title="Goles a Favor">GF</th>
-                                    <th class="text-center" title="Diferencia de Gol">DG</th>
-                                    <th class="text-center" title="Goles en Contra">GC</th>
-                                    <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
-                                    <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="team in reclassification | orderBy:'id'">
-                                    <td class="text-center">\{{team.data.pos}}</td>
-                                    <td class="text-right logo">
-                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.data.id}}" alt="">
-                                    </td>
-                                    <td class="text-left">\{{team.data.name}}</td>
-                                    <td class="text-center">\{{team.data.pt}}</td>
-                                    <td class="text-center">\{{team.data.pj}}</td>
-                                    <td class="text-center">\{{team.data.gf}}</td>
-                                    <td class="text-center">\{{team.data.gd}}</td>
-                                    <td class="text-center">\{{team.data.gc}}</td>
-                                    <td class="text-center">\{{team.data.gfv}}</td>
-                                    <td class="text-center">\{{team.data.gcv}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key == 'por_definir'">
+               <div class="row schedules-titles">
+                  <div class="small-12 large-6 columns">
+                     POR DEFINIR
+                  </div>
+                  <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
+                  <div class="small-12 large-4 columns hide-for-small-only hide-for-medium-only">Estadio</div>
+               </div>
+               <div class="row schedules-content" ng-repeat="match in group.group">
+                  <div class="small-12 large-6 columns match-row">
+                     <div class="row">
+                        <div class="small-1 columns blue">
+                           --
+                        </div>
+                        <div class="small-11 columns">
+                           <div class="row">
+                              <div class="small-5 columns text-right">
+                                 <div class=" ">
+                                    <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
+                              </div>
+                              <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
+                                 <!--Partido terminado-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido sin jugar-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido en juego-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido default-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                              </div>
+                              <div class="small-5 columns text-left">
+                                 <div class="">
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
+                                    <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
+                  <div class="small-12 medium-6 large-4 columns detalle match-row movil-small">
+                     <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                     <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                     <hidden ng-repeat="match_win in matches_win">      
+                        <a href="\{{match_win.path}}" target="_blank">
+                        <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
+                        </a>     
+                     </hidden>
+                  </div>
+                  <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
+                     <div class="row">
+                        <div class="small-3 medium-5 large-5 columns text-right">
+                           <div class="row">
+                              <div class="small-12 large-2 columns large-push-10">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns large-pull-2 key-events">
+                                 <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img yellow-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img red-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img goals"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
+                           <!--Partido en juego-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                           <!--Partido default-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                        </div>
+                        <div class="small-3 medium-5 large-5 columns text-left">
+                           <div class="row">
+                              <div class="small-12 large-2 columns">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns key-events">
+                                 <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img yellow-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img red-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
+                                    <div class="event-img goals"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <!-- -->
-        </div>
-        <div class="loadlayer">
-            <img src="assets/img/ajax-loader.gif">
-        </div>
-    </div>
+            <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key == 'aplazado'">
+               <div class="row schedules-titles">
+                  <div class="small-12 large-6 columns">
+                     APLAZADOS
+                  </div>
+                  <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
+                  <div class="small-12 large-4 columns hide-for-small-only hide-for-medium-only">Estadio</div>
+               </div>
+               <div class="row schedules-content" ng-repeat="match in group.group">
+                  <div class="small-12 large-6 columns match-row">
+                     <div class="row">
+                        <div class="small-1 columns blue">
+                           --
+                        </div>
+                        <div class="small-11 columns">
+                           <div class="row">
+                              <div class="small-5 columns text-right">
+                                 <div class=" ">
+                                    <div class="hide-for-small-only text-inline">\{{match.home.name }}</div>
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.home.id}}" alt="">
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.home.name  | limitTo: 15 }}</div>
+                              </div>
+                              <div class="small-2 columns text-center marcador" ng-switch='match.period' period="\{{match.period}}">
+                                 <!--Partido terminado-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FULLTIME" style="color: #0064fa">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido sin jugar-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="PREMATCH|POSTPONED"  style="color: #A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido en juego-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                                 <!--Partido default-->
+                                 <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default style="color:#A4A4A4">
+                                 <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
+                                 </a>
+                              </div>
+                              <div class="small-5 columns text-left">
+                                 <div class="">
+                                    <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{match.away.id}}" alt="">
+                                    <div class="hide-for-small-only text-inline equipos">\{{match.away.name }}</div>
+                                 </div>
+                                 <div class="hide-for-medium equipos">\{{match.away.name  | limitTo: 15 }}</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
+                  <div class="small-12 medium-6 large-4 columns detalle match-row movil-small">
+                     <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                     <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                     <hidden ng-repeat="match_win in matches_win">      
+                        <a href="\{{match_win.path}}" target="_blank">
+                        <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
+                        </a>     
+                     </hidden>
+                  </div>
+                  <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
+                     <div class="row">
+                        <div class="small-3 medium-5 large-5 columns text-right">
+                           <div class="row">
+                              <div class="small-12 large-2 columns large-push-10">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.home.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns large-pull-2 key-events">
+                                 <div ng-if="events[match.id][match.home.id].yellow_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img yellow-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].red_cards.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img red-card"></div>
+                                 </div>
+                                 <div ng-if="events[match.id][match.home.id].goals.length > 0" class="event-groups">
+                                    <span ng-repeat="event in events[match.id][match.home.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                    <div class="event-img goals"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="small-6 medium-2 large-2 columns text-center big" ng-switch="match.period">
+                           <!--Partido en juego-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" ng-switch-when-separator="|" style="color: #0dac0d"><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                           <!--Partido default-->
+                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-default><small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.lo.pe > 0 || match.vi.pe > 0)">(\{{match.away.pen_score}})</small></a>
+                        </div>
+                        <div class="small-3 medium-5 large-5 columns text-left">
+                           <div class="row">
+                              <div class="small-12 large-2 columns">
+                                 <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=65&id=\{{match.away.id}}" alt="">
+                              </div>
+                              <div class="small-12 large-10 columns key-events">
+                                 <div ng-if="events[match.id][match.away.id].yellow_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img yellow-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].yellow_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].red_cards.length > 0" class="event-groups invert">
+                                    <div class="event-img red-card"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].red_cards | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                                 <div ng-if="events[match.id][match.away.id].goals.length > 0" class="event-groups invert">
+                                    <div class="event-img goals"></div>
+                                    <span ng-repeat="event in events[match.id][match.away.id].goals | orderBy:'min'">
+                                    \{{ event.name}} <span>'\{{ event.min}}</span>,
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div ng-switch-when="scorers">
+            <div class="row scorers collapse">
+               <div class="small-12 large-4 columns season-select">
+                  <select
+                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                     ng-model="seasonSelect"
+                     ng-init="seasonSelect.pos = seasons[0].pos"
+                     ng-options="season.name for season in seasons track by season.pos ">
+                  </select>
+               </div>
+               <div class="small-12 columns">
+                  <table class="">
+                     <thead>
+                        <tr>
+                           <th class="text-center" title="Posición">Pos</th>
+                           <th></th>
+                           <th class="text-center">Jugador</th>
+                           <th class="text-center" title="Posición en la Cancha" ng-if="tournament.id == 589">Posición</th>
+                           <th class="text-center" title="Total de Goles">TG</th>
+                           <th class="text-center" title="Partidos Jugados">PJ</th>
+                           <th class="text-center" title="Goles" ng-if="tournament.id == 589">GJ</th>
+                           <th class="text-center" title="Goles de Cabeza" ng-if="tournament.id == 589">GC</th>
+                           <th class="text-center" title="Goles de Tiro Libre" ng-if="tournament.id == 589">GT</th>
+                           <th class="text-center" title="Goles de Tiro Penal" ng-if="tournament.id == 589">GP</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="player in scorers">
+                           <td>\{{ player.pos }}</td>
+                           <td class="text-right logo">
+                              <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{player.team_id}}"/>
+                           </td>
+                           <td class="text-left ">\{{ player.name }}</td>
+                           <td class="text-center" ng-if="tournament.id == 589">\{{ player.position }}</td>
+                           <td class="text-center">\{{ player.goals }}</td>
+                           <td class="text-center">\{{ player.games_played }}</td>
+                           <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_openplay }}</td>
+                           <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_head }}</td>
+                           <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_freekick }}</td>
+                           <td class="text-center" ng-if="tournament.id == 589">\{{ player.goals_penal }}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div ng-switch-when="decline">
+            <div class="row scorers collapse">
+               <div class="small-12 large-4 columns season-select">
+                  <select
+                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                     ng-model="seasonSelect"
+                     ng-init="seasonSelect.pos = seasons[0].pos"
+                     ng-options="season.name for season in seasons track by season.pos ">
+                  </select>
+               </div>
+               <div class="small-12 columns">
+                  <table class="descenso small-12 columns">
+                     <thead>
+                        <th rowspan="2"></th>
+                        <th rowspan="2"></th>
+                        <th class="text-center" colspan="2">2015</th>
+                        <th class="text-center" colspan="2">2016</th>
+                        <th class="text-center" colspan="2">2017</th>
+                        <th class="text-center" colspan="8">Totales</th>
+                     </thead>
+                     <thead>
+                        <th class="text-center">Pos</th>
+                        <th class="text-center">Equipo</th>
+                        <th class="text-center" >PJ</th>
+                        <th class="text-center" >PTS</th>
+                        <th class="text-center" >PJ</th>
+                        <th class="text-center" >PTS</th>
+                        <th class="text-center" >PJ</th>
+                        <th class="text-center" >PTS</th>
+                        <th class="text-center" >PJ</th>
+                        <th class="text-center" >GF</th>
+                        <th class="text-center" >GC</th>
+                        <th class="text-center" >GD</th>
+                        <th class="text-center" >FV</th>
+                        <th class="text-center" >CV</th>
+                        <th class="text-center" >PTS</th>
+                        <th class="text-center" >PROM</th>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="team in decline">
+                           <td class="text-center">\{{team.pos}}</td>
+                           <td class="equipo hide-for-small-only">
+                              <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="" class="hide-for-small-only">
+                              \{{team.name}}
+                           </td>
+                           <td class="equipo show-for-small-only">
+                              \{{team.name | limitTo: 3}}
+                           </td>
+                           <td class="text-center">\{{team['2015_pj']}}</td>
+                           <td class="text-center">\{{team['2015_pt']}}</td>
+                           <td class="text-center">\{{team['2016_pj']}}</td>
+                           <td class="text-center">\{{team['2016_pt']}}</td>
+                           <td class="text-center">\{{team['2017_pj']}}</td>
+                           <td class="text-center">\{{team['2017_pt']}}</td>
+                           <td class="text-center">\{{team.pj}}</td>
+                           <td class="text-center">\{{team.gf}}</td>
+                           <td class="text-center">\{{team.gc}}</td>
+                           <td class="text-center">\{{team.gd}}</td>
+                           <td class="text-center">\{{team.gfv}}</td>
+                           <td class="text-center">\{{team.gcv}}</td>
+                           <td class="text-center">\{{team.pt}}</td>
+                           <td class="text-center">\{{team.prom}}</td>
+                           <!--<td class="text-center">\{{team.2015_pj}}</td>
+                              <td class="text-center">\{{team.2016_pj}}</td>
+                              <td class="text-center">\{{team.2016_pt}}</td>
+                              <td class="text-center">\{{team.2017_pj}}</td>
+                              <td class="text-center">\{{team.2017_pt}}</td>
+                              <td class="text-center">\{{team.2015_pj}}</td>
+                              <td class="hide-for-small-only text-center">\{{team.gc}}</td>
+                              <td class="hide-for-small-only text-center">\{{team.gfv}}</td>
+                              <td class="hide-for-small-only text-center">\{{team.gcv}}</td>-->
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <!-- -->
+         <div ng-switch-when="reclassification">
+            <div class="row positions collapse">
+               <div class="small-12 large-4 columns season-select">
+                  <select
+                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
+                     ng-model="seasonSelect"
+                     ng-init="seasonSelect.pos = seasons[0].pos"
+                     ng-options="season.name for season in seasons track by season.pos ">
+                  </select>
+               </div>
+               <div class="table-scroll small-12 columns">
+                  <table>
+                     <thead>
+                        <tr>
+                           <th class="text-center" title="Posición">Pos</th>
+                           <th></th>
+                           <th class="text-center">Equipo</th>
+                           <th class="text-center" title="Puntos Totales">PT</th>
+                           <th class="text-center" title="Partidos Jugados">PJ</th>
+                           <th class="text-center" title="Goles a Favor">GF</th>
+                           <th class="text-center" title="Diferencia de Gol">DG</th>
+                           <th class="text-center" title="Goles en Contra">GC</th>
+                           <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
+                           <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="team in reclassification | orderBy:'id'">
+                           <td class="text-center">\{{team.data.pos}}</td>
+                           <td class="text-right logo">
+                              <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.data.id}}" alt="">
+                           </td>
+                           <td class="text-left">\{{team.data.name}}</td>
+                           <td class="text-center">\{{team.data.pt}}</td>
+                           <td class="text-center">\{{team.data.pj}}</td>
+                           <td class="text-center">\{{team.data.gf}}</td>
+                           <td class="text-center">\{{team.data.gd}}</td>
+                           <td class="text-center">\{{team.data.gc}}</td>
+                           <td class="text-center">\{{team.data.gfv}}</td>
+                           <td class="text-center">\{{team.data.gcv}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <!-- -->
+      </div>
+      <div class="loadlayer">
+         <img src="assets/img/ajax-loader.gif">
+      </div>
+   </div>
 </div>

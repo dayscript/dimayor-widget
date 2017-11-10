@@ -335,7 +335,7 @@ dimApp.controller('WidgetDimStatisticsController',
                      'Cache-Control' : 'no-cache'
                  }
              }).then(function(response){
-                 $scope.matches_win = {}; var matches = []; var chn_url = '';
+                 $scope.matches_win = {}; $scope.compact_video_win = {};  var matches = []; var chn_url = '';
 
                  angular.forEach(response.data.matches, function(match, match_id) {
                      matches.push(match);
@@ -346,12 +346,19 @@ dimApp.controller('WidgetDimStatisticsController',
                  MatchsTournamentWinsports.async(id+'-'+season).then(function (winsport_matches) {
                      angular.forEach(matches, function(match, key) {
                         var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
+                        if(match_filter.length > 0 && match_filter[0].ruta_compact_video !== '/node/'){
+                            $scope.compact_video_win[key] = {
+                                id: match.id,
+                                ruta_compact_video: 'http://www.winsports.co/' + match_filter[0].ruta_compact_video
+                            };
+                        }
                         if (match_filter[0].chn_image !== null) {
                             if (match_filter[0].chn_image.src.indexOf('canal-rcn') !== -1) {
                                chn_url = 'http://www.winsports.co/';
                             }else{
                                 chn_url = 'http://www.winsports.co/';
                             }
+
                             $scope.matches_win[key] = {
                                 id: match.id,
                                 chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src,
@@ -362,6 +369,12 @@ dimApp.controller('WidgetDimStatisticsController',
                  }, function(response){
                      angular.forEach(matches, function(match, key) {
                         var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
+                        if(match_filter.length > 0 && match_filter[0].ruta_compact_video !== '/node/'){
+                            $scope.compact_video_win[key] = {
+                                id: match.id,
+                                ruta_compact_video: 'http://www.winsports.co/' + match_filter[0].ruta_compact_video
+                            };
+                        }
                         if (match_filter[0].chn_image !== null) {
                             if (match_filter[0].chn_image.src.indexOf('canal-rcn') !== -1) {
                                chn_url = 'http://www.canalrcn.com/';
