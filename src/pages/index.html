@@ -675,7 +675,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="(key,team) in reclassification | orderBy:['-pt','dg']">
+                                <tr ng-repeat="(key,team) in reclassification | orderBy: ['-pt','-gd']">
                                     <td class="text-center">\{{key + 1 }}</td>
                                     <td class="text-right logo">
                                         <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
