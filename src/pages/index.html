@@ -237,23 +237,23 @@
                   </div>
                   <div class="small-12 columns text-center show-for-small-only">
                      <hidden ng-repeat="match_win in matches_win">
-                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>       
+                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
                         <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                        <img  ng-src="\{{match_win.chn_image}}"></a>     
+                        <img  ng-src="\{{match_win.chn_image}}"></a>
                      </hidden>
                   </div>
                   <!--medium-->
                   <div class="medium-6 columns detalle match-row movil movil-small show-for-medium-only">
                         <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                         <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                  </div>  
+                  </div>
                   <div class="medium-12 columns text-center show-for-medium-only">
                      <hidden ng-repeat="match_win in matches_win">
-                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>       
+                        <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
                         <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                        <img  ng-src="\{{match_win.chn_image}}"></a>     
+                        <img  ng-src="\{{match_win.chn_image}}"></a>
                      </hidden>
-                  </div> 
+                  </div>
                   <!--large-->
                   <div class="large-4 columns detalle match-row movil-small hide-for-small-only hide-for-medium-only">
                    <div class="row">
@@ -261,18 +261,18 @@
                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                         </div>
                         <div class="large-5 columns text-right">
-                           <hidden ng-repeat="match_win in compact_video_win">   
-                              <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>   
+                           <hidden ng-repeat="match_win in compact_video_win">
+                              <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
                            </hidden>
-                           <hidden ng-repeat="match_win in matches_win">   
+                           <hidden ng-repeat="match_win in matches_win">
                               <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                              <img  ng-src="\{{match_win.chn_image}}"></a>    
+                              <img  ng-src="\{{match_win.chn_image}}"></a>
                            </hidden>
-                        </div>  
+                        </div>
                         <div class="large-1 columns text-right">
                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                        </div>   
-                  </div> 
+                        </div>
+                  </div>
                   </div>
                   <!---->
                   <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -409,10 +409,10 @@
                   <div class="small-12 medium-6 large-4 columns detalle match-row movil-small">
                      <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                      <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                     <hidden ng-repeat="match_win in matches_win">      
+                     <hidden ng-repeat="match_win in matches_win">
                         <a href="\{{match_win.path}}" target="_blank">
                         <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                        </a>     
+                        </a>
                      </hidden>
                   </div>
                   <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -538,10 +538,10 @@
                   <div class="small-12 medium-6 large-4 columns detalle match-row movil-small">
                      <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                      <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                     <hidden ng-repeat="match_win in matches_win">      
+                     <hidden ng-repeat="match_win in matches_win">
                         <a href="\{{match_win.path}}" target="_blank">
                         <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                        </a>     
+                        </a>
                      </hidden>
                   </div>
                   <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -745,7 +745,6 @@
                   </table>
                </div>
             </div>
-<<<<<<< HEAD
             <!-- -->
             <div ng-switch-when="reclassification">
                 <div class="row positions collapse">
@@ -792,54 +791,6 @@
                         </table>
                     </div>
                 </div>
-=======
-         </div>
-         <!-- -->
-         <div ng-switch-when="reclassification">
-            <div class="row positions collapse">
-               <div class="small-12 large-4 columns season-select">
-                  <select
-                     ng-change="getData(seasonSelect.id, seasonSelect.season, active_tournament_tab)"
-                     ng-model="seasonSelect"
-                     ng-init="seasonSelect.pos = seasons[0].pos"
-                     ng-options="season.name for season in seasons track by season.pos ">
-                  </select>
-               </div>
-               <div class="table-scroll small-12 columns">
-                  <table>
-                     <thead>
-                        <tr>
-                           <th class="text-center" title="Posición">Pos</th>
-                           <th></th>
-                           <th class="text-center">Equipo</th>
-                           <th class="text-center" title="Puntos Totales">PT</th>
-                           <th class="text-center" title="Partidos Jugados">PJ</th>
-                           <th class="text-center" title="Goles a Favor">GF</th>
-                           <th class="text-center" title="Diferencia de Gol">DG</th>
-                           <th class="text-center" title="Goles en Contra">GC</th>
-                           <th class="text-center" title="Goles a Favor como Visitante">GFV</th>
-                           <th class="text-center" title="Goles en Contra como Visitante">GCV</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr ng-repeat="team in reclassification | orderBy:'id'">
-                           <td class="text-center">\{{team.data.pos}}</td>
-                           <td class="text-right logo">
-                              <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.data.id}}" alt="">
-                           </td>
-                           <td class="text-left">\{{team.data.name}}</td>
-                           <td class="text-center">\{{team.data.pt}}</td>
-                           <td class="text-center">\{{team.data.pj}}</td>
-                           <td class="text-center">\{{team.data.gf}}</td>
-                           <td class="text-center">\{{team.data.gd}}</td>
-                           <td class="text-center">\{{team.data.gc}}</td>
-                           <td class="text-center">\{{team.data.gfv}}</td>
-                           <td class="text-center">\{{team.data.gcv}}</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
->>>>>>> fd3df51ef015b16b326b69407c53125fc3fef236
             </div>
          </div>
          <!-- -->
