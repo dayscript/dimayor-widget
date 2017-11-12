@@ -153,7 +153,7 @@
                                                <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})  </small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
                                            <!--Partido en juego-->
-                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING" style="color: #0dac0d">
+                                           <a target="_blank" ng-href="\{{ showGamecast(match.href) ? match.href:'' }}" ng-switch-when-separator="|" ng-switch-when="FIRSTHALF|SECONDHALF|HALFTIME|PLAYING|SECOND HALF|FIRST HALF" style="color: #0dac0d">
                                                <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.home.pen_score}})</small>\{{match.home.score}} - \{{match.away.score}} <small ng-if="(match.home.pen_score > 0 || match.away.pen_score > 0)">(\{{match.away.pen_score}})</small>
                                            </a>
                                            <!--Partido default-->
@@ -177,10 +177,10 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
+                            <hidden ng-repeat="match_win in matches_win">
                                 <a href="\{{match_win.path}}" target="_blank">
                                     <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
+                                </a>
                             </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -310,10 +310,10 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
+                            <hidden ng-repeat="match_win in matches_win">
                                 <a href="\{{match_win.path}}" target="_blank">
                                     <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
+                                </a>
                             </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -442,10 +442,10 @@
                         <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
                             <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                             <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">      
+                            <hidden ng-repeat="match_win in matches_win">
                                 <a href="\{{match_win.path}}" target="_blank">
                                     <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>     
+                                </a>
                             </hidden>
                         </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
@@ -675,19 +675,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="team in reclassification | orderBy:'id'">
-                                    <td class="text-center">\{{team.data.pos}}</td>
+                                <tr ng-repeat="(key,team) in reclassification | orderBy:['-pt','dg']">
+                                    <td class="text-center">\{{key + 1 }}</td>
                                     <td class="text-right logo">
-                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.data.id}}" alt="">
+                                        <img ng-src="//omo.akamai.opta.net/image.php?h=omo.akamai.opta.net&sport=football&entity=team&description=badges&dimensions=20&id=\{{team.id}}" alt="">
                                     </td>
-                                    <td class="text-left">\{{team.data.name}}</td>
-                                    <td class="text-center">\{{team.data.pt}}</td>
-                                    <td class="text-center">\{{team.data.pj}}</td>
-                                    <td class="text-center">\{{team.data.gf}}</td>
-                                    <td class="text-center">\{{team.data.gd}}</td>
-                                    <td class="text-center">\{{team.data.gc}}</td>
-                                    <td class="text-center">\{{team.data.gfv}}</td>
-                                    <td class="text-center">\{{team.data.gcv}}</td>
+                                    <td class="text-left">\{{team.name}}</td>
+                                    <td class="text-center">\{{team.pt}}</td>
+                                    <td class="text-center">\{{team.pj}}</td>
+                                    <td class="text-center">\{{team.gf}}</td>
+                                    <td class="text-center">\{{team.gd}}</td>
+                                    <td class="text-center">\{{team.gc}}</td>
+                                    <td class="text-center">\{{team.gfv}}</td>
+                                    <td class="text-center">\{{team.gcv}}</td>
                                 </tr>
                             </tbody>
                         </table>
