@@ -330,7 +330,7 @@ dimApp.controller('WidgetDimStatisticsController',
         $(".widget-dim-content .loadlayer").show(0);
         /**/
          if(id=="371" || id=="589"){
-             $http.get('https://s3.amazonaws.com/optafeeds-prod/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
+             $http.get('https://s3-us-west-2.amazonaws.com/dimayor-opta-feeds/schedules/'+id+'/'+season+'/rounds/'+round.id+'.json',{
                  headers: {
                      'Cache-Control' : 'no-cache'
                  }
@@ -357,6 +357,7 @@ dimApp.controller('WidgetDimStatisticsController',
                                 chn_image: match_filter[0].chn_image&&match_filter[0].chn_image.src,
                                 path: chn_url
                             };
+                            console.log($scope.matches_win)
                         }
                      });
                  }, function(response){
