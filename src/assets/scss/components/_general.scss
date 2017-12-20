@@ -102,6 +102,9 @@ select {
       &.tournament-664.active {
         background-color: #0064fa;
       }
+      &.tournament-937.active {
+        background-color: #eb0e66;
+      }
 
       &.tournament-625.active {
         background-color: #eb0e66;
@@ -175,6 +178,10 @@ select {
 
       &.tournament-664 {
         background-color: #0064fa;
+      }
+
+      &.tournament-937 {
+        background-color: #eb0e66;
       }
 
       &.tournament-625 {
@@ -418,7 +425,7 @@ select {
 }
 
 .button-video-compacto-partido,
-.button-video-compacto-partido:focus, 
+.button-video-compacto-partido:focus,
 .button-video-compacto-partido:hover{
   background: #ff5a00;
   color: $white;
