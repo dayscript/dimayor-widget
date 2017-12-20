@@ -41,12 +41,13 @@ dimApp.controller('WidgetDimStatisticsController',
                 var i = 0;
                 angular.forEach(competition.teams, function(team, team_id) {
                     var aux =  [];
-                    aux.id = team.pos;
-                    aux.data = team;
+                    aux = team;
+                    //aux.id = team.pos;
                     equipos.push(aux);
                     i++;
                 });
                 $scope.reclassification = equipos;
+                console.log($scope.reclassification);
                 $(".widget-dim-content .loadlayer").hide(0);
             }, function(response){
                 $(".widget-dim-content .loadlayer").hide(0);
@@ -510,14 +511,13 @@ dimApp.controller('WidgetDimStatisticsController',
 
         if($this.text() == '+'){
             // minuto a minuto opta
-            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json')
+            $http.get('//s3-us-west-2.amazonaws.com/dimayor-opta-feeds/formations/'+tournament.id+'/'+tournament.season+'/matches/'+match.id+'.json',   {headers: {
+                  'Cache-Control' : 'no-cache'
+                }} )
                 .then(function(response){
-
                 $('.match-'+match.id).show(300);
                 $this.text('-');
-
                 var formation = response.data
-
                 $scope.events[match.id] = {};
                 $scope.events[match.id][match.home.id] = {
                     "yellow_cards" : [],
