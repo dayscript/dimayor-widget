@@ -121,14 +121,14 @@
 
                 <div ng-repeat="(key, group) in matches" class="schedules" ng-if="key != 'aplazado' && key != 'por_definir'">
                     <div class="row schedules-titles">
-                        <div class="small-12 large-7 columns" >
+                        <div class="small-12 large-6 columns" >
                             \{{ group.time == 0 ? group.tis : group.time | date:'MMM dd yyyy' }}
                         </div>
                         <div class="small-12 large-2 columns hide-for-small-only hide-for-medium-only">Árbitro</div>
-                        <div class="small-12 large-3 columns hide-for-small-only hide-for-medium-only">Estadio</div>
+                        <div class="small-12 large-4 columns hide-for-small-only hide-for-medium-only">Estadio</div>
                     </div>
                     <div class="row schedules-content" ng-repeat="match in group.group">
-                        <div class="small-12 large-7 columns match-row">
+                        <div class="small-12 large-6 columns match-row">
                             <div class="row">
                                 <div class="small-1 columns blue">
                                     \{{match.date}}
@@ -174,61 +174,60 @@
                             </div>
                         </div>
                         <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
-                        <!--VER GOLES - LOGOS WIN-->
-                        <!--small-->
-                        <!--<div class="small-12 columns detalle match-row movil-small show-for-small-only">
+                        <!--Estadio - VER GOLES - LOGOS WIN-->
+                        <div ng-if="tournament.id === 589 && tournament.season === 2017" class="small-12 medium-6 large-4 columns detalle match-row movil-small">   
+                           <div ng-repeat="match_win in matches_win">
+                              <div class="row" ng-if="match.id==match_win.id && match_win.chn_image && match_win.ruta_compact_video">
+                                 <div class="large-6 medium-5 small-12 columns">
+                                    <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                                 </div>
+                                 <div class="large-3 medium-3 small-6 columns text-center">   
+                                    <a href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>  
+                                 </div>  
+                                 <div class="large-2 medium-2 small-6 columns text-center"> 
+                                    <a href="\{{match_win.path}}" target="_blank" ><img  ng-src="\{{match_win.chn_image}}"></a>   
+                                 </div> 
+                                 <div class="large-1 columns text-right">
+                                    <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                                 </div>   
+                              </div>
+                              <div class="row" ng-if="match.id==match_win.id && match_win.chn_image && !match_win.ruta_compact_video">
+                                 <div class="large-9 medium-8 small-12 columns">
+                                    <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                                 </div> 
+                                 <div class="large-2 medium-4 small-12 columns text-center"> 
+                                    <a href="\{{match_win.path}}" target="_blank" ><img  ng-src="\{{match_win.chn_image}}"></a>   
+                                 </div> 
+                                 <div class="large-1 columns text-right">
+                                    <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                                 </div>   
+                              </div> 
+                              <div class="row" ng-if="match.id==match_win.id && !match_win.chn_image && match_win.ruta_compact_video">
+                                 <div class="large-8 small-12 columns">
+                                    <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                                 </div>
+                                 <div class="large-3 small-12 columns text-center">   
+                                    <a href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>  
+                                 </div>  
+                                 <div class="large-1 columns text-right">
+                                    <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                                 </div>   
+                              </div> 
+                              <div class="row" ng-if="match.id==match_win.id && !match_win.chn_image && !match_win.ruta_compact_video">
+                                 <div class="large-10 small-12 columns text-left">
+                                    <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
+                                 </div>
+                                 <div class="large-2 columns text-right">
+                                    <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
+                                 </div>   
+                              </div> 
+                           </div> 
+                        </div> 
+                        <div ng-if="tournament.id !== 589 || tournament.id === 589 && tournament.season === 2016" class="small-12 medium-6 large-4 columns detalle match-row movil-small">   
                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                        </div>
-                        <div class="small-12 columns text-center show-for-small-only">
-                           <hidden ng-repeat="match_win in matches_win">
-                              <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
-                              <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                              <img  ng-src="\{{match_win.chn_image}}"></a>
-                           </hidden>
-                        </div>
-                        <!--medium-->
-                        <!--<div class="medium-6 columns detalle match-row movil movil-small show-for-medium-only">
-                              <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                              <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                        </div>
-                        <div class="medium-12 columns text-center show-for-medium-only">
-                           <hidden ng-repeat="match_win in matches_win">
-                              <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
-                              <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                              <img  ng-src="\{{match_win.chn_image}}"></a>
-                           </hidden>
-                        </div>
-                        <!--large-->
-                        <!--<div class="large-4 columns detalle match-row movil-small hide-for-small-only hide-for-medium-only">
-                         <div class="row">
-                              <div class="large-6 columns text-left">
-                                 <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                              </div>
-                              <div class="large-5 columns text-right">
-                                 <hidden ng-repeat="match_win in compact_video_win">
-                                    <a ng-if="match.id==match_win.id && match_win.ruta_compact_video" href="\{{match_win.ruta_compact_video}}" target="_blank" class="button-video-compacto-partido">VER GOLES</a>
-                                 </hidden>
-                                 <hidden ng-repeat="match_win in matches_win">
-                                    <a ng-if="match.id==match_win.id" href="\{{match_win.path}}" target="_blank" >
-                                    <img  ng-src="\{{match_win.chn_image}}"></a>
-                                 </hidden>
-                              </div>
-                              <div class="large-1 columns text-right">
-                                 <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                              </div>
-                        </div>
-                      </div>-->
+                        </div> 
                         <!---->
-                        <div class="small-12 medium-6 large-3 columns detalle match-row movil-small">
-                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
-                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
-                            <hidden ng-repeat="match_win in matches_win">
-                                <a href="\{{match_win.path}}" target="_blank">
-                                    <img ng-if="match.id==match_win.id" style="float: right; margin-right: 20px;" ng-src="\{{match_win.chn_image}}">
-                                </a>
-                            </hidden>
-                        </div>
                         <div class="small-12 columns match-detail" ng-class="'match-'+match.id">
                             <div class="row">
                                 <div class="small-3 medium-5 large-5 columns text-right">

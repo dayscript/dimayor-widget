@@ -425,14 +425,14 @@ select {
 }
 
 .button-video-compacto-partido,
-.button-video-compacto-partido:focus,
+.button-video-compacto-partido:focus, 
 .button-video-compacto-partido:hover{
-  background: #ff5a00;
-  color: $white;
-  font-size: 1em;
-  padding-top: 0.3em;
-  padding-right: 1.3em;
-  padding-bottom: 0.3em;
-  padding-left: 1.3em;
-  margin: 0px;
+    background: #ff5a00;
+    color: #FFF;
+    font-size: 0.9em;
+    padding-top: 0.3em;
+    padding-right: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0.3em;
+    margin: 0px;
 }
