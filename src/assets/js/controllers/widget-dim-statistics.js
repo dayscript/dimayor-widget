@@ -159,7 +159,7 @@ dimApp.controller('WidgetDimStatisticsController',
                     'Cache-Control' : 'no-cache'
                 }
             }).then(function(response){
-
+                $scope.season = season;
                 $scope.decline = [];
 
                 angular.forEach(response.data.teams, function(team, team_id) {
@@ -348,7 +348,7 @@ dimApp.controller('WidgetDimStatisticsController',
                      angular.forEach(matches, function(match, key) {
                         var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
                         if (match_filter.length > 0 && match_filter[0].opta_id === match.id && match_filter[0].ruta_compact_video !== '/node/') {
-                            compact_video = 'http://www.winsports.co/' + match_filter[0].ruta_compact_video;                            
+                            compact_video = 'http://www.winsports.co/' + match_filter[0].ruta_compact_video;
                         }else{
                             compact_video = null;
                         }
@@ -371,7 +371,7 @@ dimApp.controller('WidgetDimStatisticsController',
                      angular.forEach(matches, function(match, key) {
                         var match_filter = $filter('filter')(winsport_matches, {opta_id: match.id}, true);
                        if (match_filter.length > 0 && match_filter[0].opta_id === match.id && match_filter[0].ruta_compact_video !== '/node/') {
-                            compact_video = 'http://www.winsports.co/' + match_filter[0].ruta_compact_video;                            
+                            compact_video = 'http://www.winsports.co/' + match_filter[0].ruta_compact_video;
                         }else{
                             compact_video = null;
                         }
