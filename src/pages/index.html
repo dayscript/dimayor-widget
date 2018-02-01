@@ -628,9 +628,10 @@
                             <thead>
                               <th rowspan="2"></th>
                               <th rowspan="2"></th>
+                              <th class="text-center" colspan="2" ng-if='season <= 2016'>2014</th>
                               <th class="text-center" colspan="2" ng-if='season <= 2017'>2015</th>
                               <th class="text-center" colspan="2">2016</th>
-                              <th class="text-center" colspan="2">2017</th>
+                              <th class="text-center" colspan="2" ng-if='season > 2016'>2017</th>
                               <th class="text-center" colspan="2" ng-if='season == 2018'>2018</th>
                               <th class="text-center" colspan="8">Totales</th>
                             </thead>
@@ -664,12 +665,14 @@
                                     <td class="equipo show-for-small-only">
                                         \{{team.name | limitTo: 3}}
                                     </td>
+                                    <td class="text-center" ng-if='season <= 2016' >\{{team['2014_pj']}}</td>
+                                    <td class="text-center" ng-if='season <= 2016' >\{{team['2014_pt']}}</td>
                                     <td class="text-center" ng-if='season <= 2017' >\{{team['2015_pj']}}</td>
                                     <td class="text-center" ng-if='season <= 2017' >\{{team['2015_pt']}}</td>
                                     <td class="text-center">\{{team['2016_pj']}}</td>
                                     <td class="text-center">\{{team['2016_pt']}}</td>
-                                    <td class="text-center">\{{team['2017_pj']}}</td>
-                                    <td class="text-center">\{{team['2017_pt']}}</td>
+                                    <td class="text-center" ng-if='season > 2016'>\{{team['2017_pj']}}</td>
+                                    <td class="text-center" ng-if='season > 2016'>\{{team['2017_pt']}}</td>
                                     <td class="text-center" ng-if='season == 2018'>\{{team['2018_pj']}}</td>
                                     <td class="text-center" ng-if='season == 2018'>\{{team['2018_pt']}}</td>
                                     <td class="text-center">\{{team.pj}}</td>
