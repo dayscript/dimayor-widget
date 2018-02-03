@@ -175,7 +175,7 @@
                         </div>
                         <div class="small-12 medium-6 large-2 columns detalle match-row movil movil-small izq"><strong class="item">Arbitro: </strong> \{{match.official | limitTo: 25 || 'Pendiente'}}</div>
                         <!--Estadio - VER GOLES - LOGOS WIN-->
-                        <div ng-if="tournament.id === 589 && tournament.season === 2017" class="small-12 medium-6 large-4 columns detalle match-row movil-small">
+                        <div ng-if="tournament.id === 589 && tournament.season === 2017 || tournament.id === 371 && tournament.season === 2018" class="small-12 medium-6 large-4 columns detalle match-row movil-small">
                            <div ng-repeat="match_win in matches_win">
                               <div class="row" ng-if="match.id==match_win.id && match_win.chn_image && match_win.ruta_compact_video">
                                  <div class="large-6 medium-5 small-12 columns">
@@ -223,7 +223,7 @@
                               </div>
                            </div>
                         </div>
-                        <div ng-if="tournament.id !== 589 || tournament.id === 589 && tournament.season === 2016" class="small-12 medium-6 large-4 columns detalle match-row movil-small">
+                        <div ng-if="tournament.id !== 589 && tournament.id !== 371 || tournament.id === 589 && tournament.season === 2016" class="small-12 medium-6 large-4 columns detalle match-row movil-small">
                            <strong class="item">Estadio: </strong>\{{match.venue_name | limitTo: 30 || '' }}
                            <a class="expand" ng-click="getCriticalEvents(tournament, match, $event)">+</a>
                         </div>

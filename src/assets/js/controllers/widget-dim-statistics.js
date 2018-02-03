@@ -423,7 +423,7 @@ dimApp.controller('WidgetDimStatisticsController',
                 var new_hour = match.date.split(' ')[1];
                 match.date = new_hour.split(':')[0]+':'+new_hour.split(':')[1];
 
-                if(id=="589"){
+                if(id=="589" || id=="371" ){
                     match.href = "http://dimayor.com.co/gamecast/?competition="+id+"&season="+season+"&match="+match.id+"&round="+response.data.round.id+"#";
                 }else{
                     match.href = "#";
